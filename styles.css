@@ -276,20 +276,18 @@ h1::after {
     cursor: pointer;
     box-shadow: var(--box-shadow);
     position: relative;
-    z-index: 100;
+    z-index: 5;
 }
 
 #drop-zone:hover {
     border-color: var(--primary-color);
     box-shadow: var(--box-shadow-lg);
-    transform: translateY(-2px);
 }
 
 #drop-zone.dragover {
     border-color: var(--primary-color);
     background-color: rgba(0, 86, 179, 0.05);
     box-shadow: var(--box-shadow-lg);
-    transform: translateY(-2px);
 }
 
 #drop-zone.busy {

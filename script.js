@@ -914,203 +914,75 @@
     function bindEventHandlers(fileProcessor, ui) {
         const dropZone = ui.elements.dropZone;
         
-        // Track drag counter to handle nested elements
-        let dragCounter = 0;
+        // Simplified approach - reset to basics
         
-        // Clear any active drag state (for safety)
-        const clearDragState = () => {
-            document.body.classList.remove('drag-active');
-            dropZone.classList.remove('dragover');
-            dropZone.classList.remove('global-dragover');
-            dragCounter = 0;
-        };
-        
-        // Initialize by clearing any possible stuck state
-        clearDragState();
-        
-        // Handle document-level drag events
-        document.addEventListener('dragenter', (e) => {
-            e.preventDefault();
-            dragCounter++;
-            
-            if (!fileProcessor.isProcessingActive()) {
-                document.body.classList.add('drag-active');
-            }
-        }, false);
-        
-        document.addEventListener('dragleave', (e) => {
-            e.preventDefault();
-            dragCounter--;
-            
-            // Only remove class when we've left all elements
-            if (dragCounter <= 0) {
-                document.body.classList.remove('drag-active');
-                dragCounter = 0;
-            }
-        }, false);
-        
-        document.addEventListener('dragover', (e) => {
-            e.preventDefault(); // Critical for drop to work
-        }, false);
-        
-        document.addEventListener('drop', (e) => {
-            e.preventDefault();
-            clearDragState();
-            
-            // Only process drops directly on the drop zone
-            if (e.target !== dropZone && !dropZone.contains(e.target)) {
+        // Simple file drop handler
+        function handleFiles(files) {
+            if (!files || files.length === 0) {
+                ui.showNotification('No files selected', 'error');
                 return;
             }
-            
-            handleFileDrop(e);
-        }, false);
-        
-        // Direct drop zone events - more specific handling
-        dropZone.addEventListener('dragenter', (e) => {
-            e.preventDefault();
-            e.stopPropagation();
-            
-            if (!fileProcessor.isProcessingActive()) {
-                dropZone.classList.add('dragover');
-            } else {
-                ui.showBusyState();
-            }
-        }, false);
-        
-        dropZone.addEventListener('dragover', (e) => {
-            e.preventDefault();
-            e.stopPropagation();
-            
-            // Keep the dragover state active
-            if (!fileProcessor.isProcessingActive()) {
-                dropZone.classList.add('dragover');
-            }
-        }, false);
-        
-        dropZone.addEventListener('dragleave', (e) => {
-            e.preventDefault();
-            e.stopPropagation();
-            
-            // Make sure we're really leaving the drop zone (not entering a child)
-            const rect = dropZone.getBoundingClientRect();
-            const x = e.clientX;
-            const y = e.clientY;
-            
-            if (x <= rect.left || x >= rect.right || y <= rect.top || y >= rect.bottom) {
-                dropZone.classList.remove('dragover');
-            }
-        }, false);
-        
-        dropZone.addEventListener('drop', (e) => {
-            e.preventDefault();
-            e.stopPropagation();
-            clearDragState();
-            
-            handleFileDrop(e);
-        }, false);
-        
-        // Central handler for file drops
-        function handleFileDrop(e) {
-            console.log('File drop detected', e);
             
             if (fileProcessor.isProcessingActive()) {
                 ui.showBusyState();
                 return;
             }
             
-            try {
-                // Access the dataTransfer object more safely with explicit debugging
-                const dataTransfer = e.dataTransfer;
-                console.log('DataTransfer object:', dataTransfer);
-                
-                if (!dataTransfer) {
-                    console.error('DataTransfer object is null or undefined');
-                    ui.showNotification('Browser error: Unable to access dropped files. Please try clicking to select files instead.', 'error');
-                    return;
-                }
-                
-                // Check for items first (works better in some browsers)
-                if (dataTransfer.items && dataTransfer.items.length > 0) {
-                    console.log('Using dataTransfer.items, count:', dataTransfer.items.length);
-                    
-                    // Convert DataTransferItemList to array of files
-                    const files = [];
-                    for (let i = 0; i < dataTransfer.items.length; i++) {
-                        const item = dataTransfer.items[i];
-                        if (item.kind === 'file') {
-                            const file = item.getAsFile();
-                            if (file) files.push(file);
-                        }
-                    }
-                    
-                    console.log('Processed files from items:', files.length);
-                    
-                    if (files.length > 0) {
-                        fileProcessor.processFiles(files);
-                        return;
-                    }
-                }
-                
-                // Fall back to files property
-                const files = dataTransfer.files;
-                console.log('Using dataTransfer.files, count:', files ? files.length : 0);
-                
-                if (files && files.length > 0) {
-                    // Create a proper FileList or Array from the files
-                    const fileArray = Array.from(files);
-                    console.log('File details:', fileArray.map(f => ({ name: f.name, size: f.size, type: f.type })));
-                    fileProcessor.processFiles(files);
-                } else {
-                    console.log('No valid files in drop event');
-                    ui.showNotification('No valid files detected. Please try again or use the click to upload option.', 'error');
-                }
-            } catch (error) {
-                console.error('Error processing dropped files:', error);
-                ui.showNotification('Error processing files. Please try again.', 'error');
-            }
+            console.log(`Processing ${files.length} files...`);
+            fileProcessor.processFiles(files);
         }
         
-        // Click handler for file selection
-        dropZone.addEventListener('click', (e) => {
-            if (!fileProcessor.isProcessingActive()) {
-                fileProcessor.handleFileSelection();
-            } else {
+        // Basic drag and drop handlers
+        dropZone.addEventListener('dragover', function(e) {
+            e.preventDefault();
+            e.stopPropagation();
+            this.classList.add('dragover');
+        });
+        
+        dropZone.addEventListener('dragleave', function(e) {
+            e.preventDefault();
+            e.stopPropagation();
+            this.classList.remove('dragover');
+        });
+        
+        dropZone.addEventListener('drop', function(e) {
+            console.log('Drop event fired');
+            e.preventDefault();
+            e.stopPropagation();
+            this.classList.remove('dragover');
+            
+            // Simply use the files directly from the event
+            const files = e.dataTransfer.files;
+            console.log('Files from drop:', files?.length || 0);
+            handleFiles(files);
+        });
+        
+        // Click handler for traditional file selection
+        dropZone.addEventListener('click', function(e) {
+            if (fileProcessor.isProcessingActive()) {
                 ui.showBusyState();
+                return;
             }
-        }, false);
+            fileProcessor.handleFileSelection();
+        });
         
-        // Handle page unload/navigation - clean up any stuck states
-        window.addEventListener('beforeunload', clearDragState);
+        // Clean up any browser-specific drop issues
+        document.addEventListener('dragover', function(e) {
+            e.preventDefault(); // Prevent browser default behavior
+        });
         
-        // Add helper CSS for drag state
+        document.addEventListener('drop', function(e) {
+            e.preventDefault(); // Prevent browser from opening the file
+        });
+        
+        // Add simple styling for drag state
         const style = document.createElement('style');
         style.id = 'drag-helper-styles';
         style.textContent = `
-            body.drag-active::after {
-                content: '';
-                position: fixed;
-                top: 0;
-                left: 0;
-                width: 100%;
-                height: 100%;
+            #drop-zone.dragover {
+                border-color: var(--primary-color);
                 background-color: rgba(0, 86, 179, 0.05);
-                z-index: 990;
-                pointer-events: none;
-            }
-            
-            .global-dragover {
-                border-color: var(--primary-color) !important;
-                box-shadow: var(--box-shadow-lg) !important;
-                transform: translateY(-2px) !important;
-            }
-            
-            #drop-zone * {
-                pointer-events: none !important;
-            }
-            
-            #drop-zone {
-                position: relative;
-                z-index: 100;
+                box-shadow: var(--box-shadow-lg);
             }
         `;
         
