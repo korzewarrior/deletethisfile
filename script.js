@@ -1,6 +1,6 @@
 /**
  * DeleteThisFile - Enterprise Secure Deletion System
- * v2.6.1 - Last updated: 2025-04-10
+ * v2.6.2 - Last updated: 2025-04-10
  * 
  * Copyright (c) 2025 DeleteThisFile, Inc.
  * All rights reserved.
@@ -882,21 +882,6 @@
             });
         };
         
-        // Handle file drop event - deprecated in favor of direct event handling
-        const handleFileDrop = (e) => {
-            if (processingActive) {
-                ui.showBusyState();
-                return;
-            }
-            
-            const dataTransfer = e.dataTransfer;
-            const files = dataTransfer.files;
-            
-            if (files.length > 0) {
-                processFiles(files);
-            }
-        };
-        
         // Handle file selection
         const handleFileSelection = () => {
             if (processingActive) {
@@ -918,7 +903,6 @@
         // Public interface
         return {
             processFiles,
-            handleFileDrop,
             handleFileSelection,
             isProcessingActive: () => processingActive
         };
@@ -930,94 +914,141 @@
     function bindEventHandlers(fileProcessor, ui) {
         const dropZone = ui.elements.dropZone;
         
-        // Prevent default drag behaviors
-        ['dragenter', 'dragover', 'dragleave', 'drop'].forEach(eventName => {
-            dropZone.addEventListener(eventName, preventDefaultBehavior, false);
-            document.body.addEventListener(eventName, preventDefaultBehavior, false);
-        });
+        // Track drag counter to handle nested elements
+        let dragCounter = 0;
         
-        function preventDefaultBehavior(e) {
+        // Clear any active drag state (for safety)
+        const clearDragState = () => {
+            document.body.classList.remove('drag-active');
+            dropZone.classList.remove('dragover');
+            dropZone.classList.remove('global-dragover');
+            dragCounter = 0;
+        };
+        
+        // Initialize by clearing any possible stuck state
+        clearDragState();
+        
+        // Handle document-level drag events
+        document.addEventListener('dragenter', (e) => {
+            e.preventDefault();
+            dragCounter++;
+            
+            if (!fileProcessor.isProcessingActive()) {
+                document.body.classList.add('drag-active');
+            }
+        }, false);
+        
+        document.addEventListener('dragleave', (e) => {
+            e.preventDefault();
+            dragCounter--;
+            
+            // Only remove class when we've left all elements
+            if (dragCounter <= 0) {
+                document.body.classList.remove('drag-active');
+                dragCounter = 0;
+            }
+        }, false);
+        
+        document.addEventListener('dragover', (e) => {
+            e.preventDefault(); // Critical for drop to work
+        }, false);
+        
+        document.addEventListener('drop', (e) => {
+            e.preventDefault();
+            clearDragState();
+            
+            // Only process drops directly on the drop zone
+            if (e.target !== dropZone && !dropZone.contains(e.target)) {
+                return;
+            }
+            
+            handleFileDrop(e);
+        }, false);
+        
+        // Direct drop zone events - more specific handling
+        dropZone.addEventListener('dragenter', (e) => {
             e.preventDefault();
             e.stopPropagation();
-        }
+            
+            if (!fileProcessor.isProcessingActive()) {
+                dropZone.classList.add('dragover');
+            } else {
+                ui.showBusyState();
+            }
+        }, false);
         
-        // Handle drag effects
-        ['dragenter', 'dragover'].forEach(eventName => {
-            dropZone.addEventListener(eventName, (e) => {
-                if (!fileProcessor.isProcessingActive()) {
-                    ui.setDropZoneActive(true);
-                } else {
-                    ui.showBusyState();
-                }
-            }, false);
-        });
+        dropZone.addEventListener('dragover', (e) => {
+            e.preventDefault();
+            e.stopPropagation();
+            
+            // Keep the dragover state active
+            if (!fileProcessor.isProcessingActive()) {
+                dropZone.classList.add('dragover');
+            }
+        }, false);
         
-        ['dragleave', 'drop'].forEach(eventName => {
-            dropZone.addEventListener(eventName, () => {
-                ui.setDropZoneActive(false);
-            }, false);
-        });
+        dropZone.addEventListener('dragleave', (e) => {
+            e.preventDefault();
+            e.stopPropagation();
+            
+            // Make sure we're really leaving the drop zone (not entering a child)
+            const rect = dropZone.getBoundingClientRect();
+            const x = e.clientX;
+            const y = e.clientY;
+            
+            if (x <= rect.left || x >= rect.right || y <= rect.top || y >= rect.bottom) {
+                dropZone.classList.remove('dragover');
+            }
+        }, false);
         
-        // Enhanced drop handler with debugging
         dropZone.addEventListener('drop', (e) => {
+            e.preventDefault();
+            e.stopPropagation();
+            clearDragState();
+            
+            handleFileDrop(e);
+        }, false);
+        
+        // Central handler for file drops
+        function handleFileDrop(e) {
             console.log('File drop detected');
+            
             if (fileProcessor.isProcessingActive()) {
                 ui.showBusyState();
                 return;
             }
             
-            // Ensure we prevent default behavior
-            e.preventDefault();
-            e.stopPropagation();
-            
             try {
-                const dataTransfer = e.dataTransfer;
-                console.log('DataTransfer object:', dataTransfer);
+                const files = e.dataTransfer?.files;
+                console.log('Files detected:', files?.length);
                 
-                if (dataTransfer && dataTransfer.files) {
-                    const files = dataTransfer.files;
-                    console.log('Files detected:', files.length);
-                    
-                    if (files.length > 0) {
-                        fileProcessor.processFiles(files);
-                    } else {
-                        console.log('No files in drop event');
-                    }
+                if (files && files.length > 0) {
+                    fileProcessor.processFiles(files);
                 } else {
-                    console.log('No valid dataTransfer or files in drop event');
+                    console.log('No valid files in drop event');
+                    ui.showNotification('No valid files detected. Please try again.', 'error');
                 }
             } catch (error) {
                 console.error('Error processing dropped files:', error);
                 ui.showNotification('Error processing files. Please try again.', 'error');
             }
+        }
+        
+        // Click handler for file selection
+        dropZone.addEventListener('click', (e) => {
+            if (!fileProcessor.isProcessingActive()) {
+                fileProcessor.handleFileSelection();
+            } else {
+                ui.showBusyState();
+            }
         }, false);
         
-        // Existing click handler
-        dropZone.addEventListener('click', fileProcessor.handleFileSelection, false);
-        
-        // Add global drag highlight indicators
-        document.body.addEventListener('dragenter', () => {
-            if (!fileProcessor.isProcessingActive()) {
-                document.body.classList.add('drag-active');
-                dropZone.classList.add('global-dragover');
-            }
-        });
-        
-        document.body.addEventListener('dragleave', (e) => {
-            // Only remove class if we're leaving the document
-            if (e.target === document.body || e.target === document.documentElement) {
-                document.body.classList.remove('drag-active');
-                dropZone.classList.remove('global-dragover');
-            }
-        });
-        
-        document.body.addEventListener('drop', () => {
-            document.body.classList.remove('drag-active');
-            dropZone.classList.remove('global-dragover');
-        });
+        // Handle page unload/navigation - clean up any stuck states
+        window.addEventListener('beforeunload', clearDragState);
         
         // Add helper CSS for drag state
         const style = document.createElement('style');
+        style.id = 'drag-helper-styles';
         style.textContent = `
             body.drag-active::after {
                 content: '';
@@ -1027,7 +1058,7 @@
                 width: 100%;
                 height: 100%;
                 background-color: rgba(0, 86, 179, 0.05);
-                z-index: 9990;
+                z-index: 990;
                 pointer-events: none;
             }
             
@@ -1036,7 +1067,23 @@
                 box-shadow: var(--box-shadow-lg) !important;
                 transform: translateY(-2px) !important;
             }
+            
+            #drop-zone * {
+                pointer-events: none !important;
+            }
+            
+            #drop-zone {
+                position: relative;
+                z-index: 100;
+            }
         `;
+        
+        // Remove any existing style to prevent duplication
+        const existingStyle = document.getElementById('drag-helper-styles');
+        if (existingStyle && existingStyle.parentNode) {
+            existingStyle.parentNode.removeChild(existingStyle);
+        }
+        
         document.head.appendChild(style);
     }
 })(); 
