@@ -325,6 +325,29 @@
         [data-theme="dark"] .related-post-img {
             background-color: #262626;
         }
+        
+        .blog-sidebar {
+            display: flex;
+            flex-direction: column;
+            gap: 2.5rem;
+            background-color: transparent; /* Ensuring the sidebar itself is transparent */
+        }
+        
+        .sidebar-section {
+            /* ... existing code ... */
+        }
+        
+        [data-theme="dark"] .blog-content {
+            background-color: #1a1a1a;
+            color: rgba(255, 255, 255, 0.9);
+            border: 1px solid rgba(255, 255, 255, 0.07);
+        }
+        
+        [data-theme="dark"] .blog-sidebar {
+            background-color: transparent;
+        }
+        
+        [data-theme="dark"] .blog-content h2,
     </style>
 </head>
 <body>
