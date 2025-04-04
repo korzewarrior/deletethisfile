@@ -63,13 +63,23 @@
             padding: 2rem;
             box-shadow: var(--box-shadow);
             position: relative;
-            transition: var(--transition);
+            transition: all 0.4s ease-out;
             overflow: hidden;
         }
         
         .testimonial-card:hover {
             transform: translateY(-5px);
-            box-shadow: var(--box-shadow-lg);
+            box-shadow: 0 12px 20px rgba(0, 86, 179, 0.15), 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+        
+        .testimonial-card:hover::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 5px;
+            background: var(--primary-gradient);
         }
         
         .testimonial-card::before {
@@ -499,7 +509,7 @@
                 <span class="compliance-badge">NIST 800-88</span>
             </div>
             <p>Files are processed using proprietary zero-knowledge architecture. No data is transmitted externally.</p>
-            <p>© 2025 DeleteThisFile.com | <a href="privacy-policy.html">Privacy Policy</a> | <a href="terms-of-service.html">Terms of Service</a> | <a href="enterprise-solutions.html">Enterprise Solutions</a> | <a href="testimonials.html">Testimonials</a></p>
+            <p>© 2025 DeleteThisFile.com | <a href="privacy-policy.html">Privacy Policy</a> | <a href="terms-of-service.html">Terms of Service</a> | <a href="enterprise-solutions.html">Enterprise Solutions</a> | <a href="testimonials.html">Testimonials</a> | <a href="how-it-works.html">How It Works</a> | <a href="team.html">Our Team</a> | <a href="comparison.html">Comparison</a> | <a href="blog.html">Blog</a> | <a href="certificate.html">Certificate</a></p>
         </footer>
     </div>
 </body>

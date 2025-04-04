@@ -88,15 +88,21 @@
             border-radius: var(--border-radius);
             border: 1px solid var(--gray-200);
             overflow: hidden;
-            transition: var(--transition);
+            transition: all 0.4s ease-out;
             box-shadow: var(--box-shadow);
             display: flex;
             flex-direction: column;
+            position: relative;
         }
         
         .pricing-card:hover {
             transform: translateY(-5px);
-            box-shadow: var(--box-shadow-lg);
+            box-shadow: 0 15px 30px rgba(0, 86, 179, 0.1), 0 8px 20px rgba(0, 0, 0, 0.08);
+            border-color: var(--primary-color);
+        }
+        
+        .pricing-card:hover .pricing-header {
+            background-color: rgba(0, 86, 179, 0.05);
         }
         
         .pricing-header {
@@ -198,18 +204,27 @@
             padding: 1.5rem;
             border: 1px solid var(--gray-200);
             box-shadow: var(--box-shadow);
-            transition: var(--transition);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
         }
         
         .feature-card:hover {
             transform: translateY(-3px);
             box-shadow: var(--box-shadow-lg);
+            border-color: var(--primary-color);
+        }
+        
+        .feature-card:hover .feature-card-icon {
+            transform: scale(1.1);
+            color: var(--primary-color);
         }
         
         .feature-card-icon {
             font-size: 2rem;
             color: var(--primary-color);
             margin-bottom: 1rem;
+            transition: all 0.3s ease;
         }
         
         .feature-card h4 {
@@ -228,6 +243,8 @@
         .featured-plan {
             position: relative;
             border: 2px solid var(--primary-color);
+            box-shadow: 0 8px 30px rgba(0, 86, 179, 0.15);
+            transform: scale(1.03);
         }
         
         .featured-plan::before {
@@ -236,13 +253,18 @@
             top: -12px;
             left: 50%;
             transform: translateX(-50%);
-            background: var(--primary-color);
+            background: var(--primary-gradient);
             color: white;
             font-size: 0.7rem;
             font-weight: var(--font-weight-bold);
             padding: 0.25rem 1rem;
             border-radius: 20px;
             letter-spacing: 1px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        }
+        
+        .featured-plan:hover {
+            transform: scale(1.03) translateY(-5px);
         }
         
         .pricing-badge {
@@ -625,7 +647,7 @@
                 <span class="compliance-badge">NIST 800-88</span>
             </div>
             <p>Files are processed using proprietary zero-knowledge architecture. No data is transmitted externally.</p>
-            <p>© 2025 DeleteThisFile.com | <a href="privacy-policy.html">Privacy Policy</a> | <a href="terms-of-service.html">Terms of Service</a> | <a href="enterprise-solutions.html">Enterprise Solutions</a></p>
+            <p>© 2025 DeleteThisFile.com | <a href="privacy-policy.html">Privacy Policy</a> | <a href="terms-of-service.html">Terms of Service</a> | <a href="enterprise-solutions.html">Enterprise Solutions</a> | <a href="testimonials.html">Testimonials</a> | <a href="how-it-works.html">How It Works</a> | <a href="team.html">Our Team</a> | <a href="comparison.html">Comparison</a> | <a href="blog.html">Blog</a> | <a href="certificate.html">Certificate</a></p>
         </footer>
     </div>
 </body>

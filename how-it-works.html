@@ -114,11 +114,34 @@
             transition: var(--transition);
             text-align: center;
             border: 1px solid var(--gray-200);
+            position: relative;
+            overflow: hidden;
         }
         
         .tech-card:hover {
             transform: translateY(-5px);
             box-shadow: var(--box-shadow);
+            border-color: var(--primary-color);
+        }
+        
+        .tech-card:hover::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(45deg, transparent, rgba(0, 86, 179, 0.05), transparent);
+            animation: tech-card-shine 1.5s ease-in-out;
+        }
+        
+        @keyframes tech-card-shine {
+            0% {
+                transform: translateX(-100%);
+            }
+            100% {
+                transform: translateX(100%);
+            }
         }
         
         .tech-card-icon {
@@ -657,7 +680,7 @@
                 <span class="compliance-badge">NIST 800-88</span>
             </div>
             <p>Files are processed using proprietary zero-knowledge architecture. No data is transmitted externally.</p>
-            <p>© 2025 DeleteThisFile.com | <a href="privacy-policy.html">Privacy Policy</a> | <a href="terms-of-service.html">Terms of Service</a> | <a href="enterprise-solutions.html">Enterprise Solutions</a> | <a href="testimonials.html">Testimonials</a> | <a href="how-it-works.html">How It Works</a></p>
+            <p>© 2025 DeleteThisFile.com | <a href="privacy-policy.html">Privacy Policy</a> | <a href="terms-of-service.html">Terms of Service</a> | <a href="enterprise-solutions.html">Enterprise Solutions</a> | <a href="testimonials.html">Testimonials</a> | <a href="how-it-works.html">How It Works</a> | <a href="team.html">Our Team</a> | <a href="comparison.html">Comparison</a> | <a href="blog.html">Blog</a> | <a href="certificate.html">Certificate</a></p>
         </footer>
     </div>
 
