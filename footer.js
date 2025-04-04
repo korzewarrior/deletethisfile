@@ -14,7 +14,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 <span class="compliance-badge">NIST 800-88</span>
             </div>
             <p>Files are processed using proprietary zero-knowledge architecture. No data is transmitted externally.</p>
-            <p>© 2025 DeleteThisFile.com | <a href="index.html">Home</a> | <a href="privacy-policy.html">Privacy Policy</a> | <a href="terms-of-service.html">Terms of Service</a></p>
+            <p>© 2025 DeleteThisFile.com | <a href="index.html">Delete</a> | <a href="privacy-policy.html">Privacy Policy</a> | <a href="terms-of-service.html">Terms of Service</a></p>
         `;
     }
 }); 
