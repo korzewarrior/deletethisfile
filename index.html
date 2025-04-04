@@ -70,6 +70,17 @@
                     </div>
                 </div>
             </div>
+            
+            <!-- Achievement popup -->
+            <div id="achievement-popup" class="achievement-popup hidden">
+                <div class="achievement-content">
+                    <div class="achievement-icon">🏆</div>
+                    <div class="achievement-text">
+                        <h3>Achievement Unlocked!</h3>
+                        <p id="achievement-name">Digital Janitor</p>
+                    </div>
+                </div>
+            </div>
         </div>
 
         <div id="stats">
@@ -82,6 +93,41 @@
                 <div class="stat-icon">🌐</div>
                 <div class="stat-label">Global Deletions</div>
                 <div class="stat-value"><span id="total-count">0</span></div>
+            </div>
+            <div class="stat-box">
+                <div class="stat-icon">✨</div>
+                <div class="stat-label">Secure Score</div>
+                <div class="stat-value"><span id="secure-points">0</span></div>
+            </div>
+        </div>
+
+        <div id="achievement-section" class="achievement-section">
+            <h3>Your Achievements</h3>
+            <div class="achievement-grid">
+                <div class="achievement-card locked" data-achievement="first-deletion">
+                    <div class="achievement-card-icon">🔥</div>
+                    <div class="achievement-card-title">First Deletion</div>
+                </div>
+                <div class="achievement-card locked" data-achievement="bulk-deletion">
+                    <div class="achievement-card-icon">📦</div>
+                    <div class="achievement-card-title">Bulk Cleaner</div>
+                </div>
+                <div class="achievement-card locked" data-achievement="speed-demon">
+                    <div class="achievement-card-icon">⚡</div>
+                    <div class="achievement-card-title">Speed Demon</div>
+                </div>
+                <div class="achievement-card locked" data-achievement="file-master">
+                    <div class="achievement-card-icon">🧠</div>
+                    <div class="achievement-card-title">File Master</div>
+                </div>
+                <div class="achievement-card locked" data-achievement="secure-hero">
+                    <div class="achievement-card-icon">🛡️</div>
+                    <div class="achievement-card-title">Security Hero</div>
+                </div>
+                <div class="achievement-card locked" data-achievement="persistence">
+                    <div class="achievement-card-icon">🔄</div>
+                    <div class="achievement-card-title">Persistence</div>
+                </div>
             </div>
         </div>
 
@@ -116,6 +162,9 @@
                 <div class="enterprise-badge">Enterprise</div>
             </div>
         </section>
+
+        <!-- Confetti canvas for celebrations -->
+        <canvas id="confetti-canvas" class="confetti-canvas"></canvas>
 
         <footer>
             <div class="compliance">
