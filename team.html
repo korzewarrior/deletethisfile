@@ -51,7 +51,7 @@
         }
         
         .team-section {
-            background-color: white;
+            background-color: var(--card-bg);
             border-radius: var(--border-radius);
             padding: 2.5rem;
             margin-bottom: 2.5rem;
@@ -195,7 +195,7 @@
         }
         
         .value-card {
-            background-color: white;
+            background-color: var(--card-bg);
             border-radius: var(--border-radius);
             padding: 2rem;
             box-shadow: var(--box-shadow);
@@ -227,7 +227,7 @@
         }
         
         .awards-section {
-            background-color: white;
+            background-color: var(--card-bg);
             border-radius: var(--border-radius);
             padding: 2.5rem;
             margin-bottom: 2.5rem;
@@ -364,6 +364,60 @@
             .award-year {
                 font-size: 0.7rem;
             }
+        }
+        
+        /* Dark mode overrides for team page */
+        [data-theme="dark"] .team-name,
+        [data-theme="dark"] .value-title {
+            color: var(--gray-800);
+        }
+        
+        [data-theme="dark"] .team-bio,
+        [data-theme="dark"] .value-desc,
+        [data-theme="dark"] .awards-section p {
+            color: var(--gray-700);
+        }
+        
+        [data-theme="dark"] .team-title,
+        [data-theme="dark"] .value-icon,
+        [data-theme="dark"] .team-fun-fact strong {
+            color: var(--primary-light);
+        }
+        
+        [data-theme="dark"] .team-badge {
+            background-color: rgba(0, 120, 255, 0.15);
+            color: var(--primary-light);
+        }
+        
+        [data-theme="dark"] .team-fun-fact {
+            background-color: rgba(0, 120, 255, 0.1);
+            color: var(--gray-700);
+            border-left: 3px solid var(--primary-light);
+        }
+        
+        [data-theme="dark"] .team-card {
+            background-color: var(--gray-100);
+        }
+        
+        [data-theme="dark"] .award-name {
+            color: var(--gray-800);
+        }
+        
+        [data-theme="dark"] .award-year {
+            color: var(--primary-light);
+        }
+        
+        [data-theme="dark"] .award-logo {
+            background-color: var(--gray-100);
+        }
+        
+        [data-theme="dark"] .award-item:hover .award-logo {
+            filter: grayscale(0) opacity(1);
+            box-shadow: 0 0 10px rgba(0, 120, 255, 0.3);
+        }
+        
+        [data-theme="dark"] .awards-section p[style] {
+            color: var(--gray-600) !important;
         }
     </style>
 </head>

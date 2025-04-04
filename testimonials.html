@@ -58,7 +58,7 @@
         }
         
         .testimonial-card {
-            background-color: white;
+            background-color: var(--card-bg);
             border-radius: var(--border-radius);
             padding: 2rem;
             box-shadow: var(--box-shadow);
@@ -191,7 +191,7 @@
         }
         
         .testimonial-stats {
-            background-color: white;
+            background-color: var(--card-bg);
             border-radius: var(--border-radius);
             padding: 2rem;
             box-shadow: var(--box-shadow);
@@ -241,7 +241,7 @@
             display: flex;
             align-items: center;
             padding: 0.75rem 1rem;
-            background-color: var(--gray-100);
+            background-color: var(--gray-50);
             border-radius: var(--border-radius);
             margin: 0.5rem;
             box-shadow: var(--box-shadow-sm);
@@ -338,7 +338,7 @@
         
         /* Additional styling for awards section */
         .awards-section {
-            background-color: white;
+            background-color: var(--card-bg);
             border-radius: var(--border-radius);
             padding: 2.5rem;
             margin-bottom: 2.5rem;
@@ -462,6 +462,51 @@
             .award-year {
                 font-size: 0.7rem;
             }
+        }
+        
+        /* Dark mode overrides for testimonials page */
+        [data-theme="dark"] .testimonial-text {
+            color: var(--gray-700);
+        }
+        
+        [data-theme="dark"] .testimonial-name {
+            color: var(--gray-800);
+        }
+        
+        [data-theme="dark"] .testimonial-position,
+        [data-theme="dark"] .stat-label,
+        [data-theme="dark"] .awards-section p[style] {
+            color: var(--gray-600) !important;
+        }
+        
+        [data-theme="dark"] .stat-value {
+            color: var(--primary-light);
+        }
+        
+        [data-theme="dark"] .stats-title,
+        [data-theme="dark"] .award-name {
+            color: var(--gray-800);
+        }
+        
+        [data-theme="dark"] .award-year {
+            color: var(--primary-light);
+        }
+        
+        [data-theme="dark"] .award-logo {
+            background-color: var(--gray-100);
+        }
+        
+        [data-theme="dark"] .award-item:hover .award-logo {
+            filter: grayscale(0) opacity(1);
+            box-shadow: 0 0 10px rgba(0, 120, 255, 0.3);
+        }
+        
+        [data-theme="dark"] .trust-badge {
+            background-color: var(--gray-50);
+        }
+        
+        [data-theme="dark"] .trust-badge-text {
+            color: var(--gray-700);
         }
     </style>
 </head>
