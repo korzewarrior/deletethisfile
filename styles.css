@@ -276,6 +276,7 @@ h1::after {
     cursor: pointer;
     box-shadow: var(--box-shadow);
     position: relative;
+    z-index: 100;
 }
 
 #drop-zone:hover {
@@ -318,6 +319,22 @@ h1::after {
     align-items: center;
     justify-content: center;
     min-height: 200px;
+    pointer-events: none;
+}
+
+.drop-zone-content > * {
+    pointer-events: none;
+}
+
+/* Make sure the drop zone has a clear target area */
+#drop-zone::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
 }
 
 .icon-container {

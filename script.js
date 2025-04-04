@@ -1,6 +1,6 @@
 /**
  * DeleteThisFile - Enterprise Secure Deletion System
- * v2.6.0 - Last updated: 2025-04-10
+ * v2.6.1 - Last updated: 2025-04-10
  * 
  * Copyright (c) 2025 DeleteThisFile, Inc.
  * All rights reserved.
@@ -835,6 +835,8 @@
                 return;
             }
             
+            console.log(`Processing ${files.length} files...`);
+            
             // Set processing state
             processingActive = true;
             
@@ -880,7 +882,7 @@
             });
         };
         
-        // Handle file drop event
+        // Handle file drop event - deprecated in favor of direct event handling
         const handleFileDrop = (e) => {
             if (processingActive) {
                 ui.showBusyState();
@@ -956,8 +958,85 @@
             }, false);
         });
         
-        // Handle file drop and click
-        dropZone.addEventListener('drop', fileProcessor.handleFileDrop, false);
+        // Enhanced drop handler with debugging
+        dropZone.addEventListener('drop', (e) => {
+            console.log('File drop detected');
+            if (fileProcessor.isProcessingActive()) {
+                ui.showBusyState();
+                return;
+            }
+            
+            // Ensure we prevent default behavior
+            e.preventDefault();
+            e.stopPropagation();
+            
+            try {
+                const dataTransfer = e.dataTransfer;
+                console.log('DataTransfer object:', dataTransfer);
+                
+                if (dataTransfer && dataTransfer.files) {
+                    const files = dataTransfer.files;
+                    console.log('Files detected:', files.length);
+                    
+                    if (files.length > 0) {
+                        fileProcessor.processFiles(files);
+                    } else {
+                        console.log('No files in drop event');
+                    }
+                } else {
+                    console.log('No valid dataTransfer or files in drop event');
+                }
+            } catch (error) {
+                console.error('Error processing dropped files:', error);
+                ui.showNotification('Error processing files. Please try again.', 'error');
+            }
+        }, false);
+        
+        // Existing click handler
         dropZone.addEventListener('click', fileProcessor.handleFileSelection, false);
+        
+        // Add global drag highlight indicators
+        document.body.addEventListener('dragenter', () => {
+            if (!fileProcessor.isProcessingActive()) {
+                document.body.classList.add('drag-active');
+                dropZone.classList.add('global-dragover');
+            }
+        });
+        
+        document.body.addEventListener('dragleave', (e) => {
+            // Only remove class if we're leaving the document
+            if (e.target === document.body || e.target === document.documentElement) {
+                document.body.classList.remove('drag-active');
+                dropZone.classList.remove('global-dragover');
+            }
+        });
+        
+        document.body.addEventListener('drop', () => {
+            document.body.classList.remove('drag-active');
+            dropZone.classList.remove('global-dragover');
+        });
+        
+        // Add helper CSS for drag state
+        const style = document.createElement('style');
+        style.textContent = `
+            body.drag-active::after {
+                content: '';
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                background-color: rgba(0, 86, 179, 0.05);
+                z-index: 9990;
+                pointer-events: none;
+            }
+            
+            .global-dragover {
+                border-color: var(--primary-color) !important;
+                box-shadow: var(--box-shadow-lg) !important;
+                transform: translateY(-2px) !important;
+            }
+        `;
+        document.head.appendChild(style);
     }
 })(); 
