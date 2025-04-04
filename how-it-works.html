@@ -51,7 +51,7 @@
         }
         
         .tech-section {
-            background-color: white;
+            background-color: var(--card-bg);
             border-radius: var(--border-radius);
             padding: 2.5rem;
             margin-bottom: 2.5rem;
@@ -294,7 +294,7 @@
         }
         
         .spec-item {
-            background-color: white;
+            background-color: var(--card-bg);
             border-radius: var(--border-radius);
             padding: 1rem;
             box-shadow: var(--box-shadow-sm);
@@ -441,6 +441,61 @@
             .tech-hero h2 {
                 font-size: 2rem;
             }
+        }
+
+        /* Dark mode overrides */
+        [data-theme="dark"] .tech-section,
+        [data-theme="dark"] .spec-item,
+        [data-theme="dark"] .tech-card {
+            background-color: var(--card-bg);
+            border-color: var(--card-border);
+            color: var(--body-color);
+        }
+
+        [data-theme="dark"] .tech-section h3,
+        [data-theme="dark"] .tech-section h4,
+        [data-theme="dark"] .quantum-field-title {
+            color: var(--primary-light);
+        }
+
+        [data-theme="dark"] .step-title,
+        [data-theme="dark"] .tech-card h5 {
+            color: var(--gray-800);
+        }
+
+        [data-theme="dark"] .step-description,
+        [data-theme="dark"] .tech-section p,
+        [data-theme="dark"] .fancy-quote {
+            color: var(--gray-700);
+        }
+
+        [data-theme="dark"] .tech-card {
+            background-color: var(--gray-100);
+        }
+
+        [data-theme="dark"] .process-step::after {
+            background-color: var(--gray-500);
+        }
+
+        [data-theme="dark"] .quantum-field {
+            background-color: var(--gray-50);
+            border-color: var(--primary-dark);
+        }
+
+        [data-theme="dark"] .quantum-field::before {
+            background: radial-gradient(circle at 50% 50%, rgba(0, 120, 255, 0.15) 0%, transparent 70%);
+        }
+
+        [data-theme="dark"] .spec-name {
+            color: var(--gray-500);
+        }
+
+        [data-theme="dark"] .fancy-quote-author {
+            color: var(--gray-500);
+        }
+
+        [data-theme="dark"] .security-theater {
+            background-color: #090909;
         }
     </style>
 </head>

@@ -85,7 +85,7 @@
         }
         
         .pricing-card {
-            background-color: white;
+            background-color: var(--card-bg);
             border-radius: var(--border-radius);
             border: 1px solid var(--gray-200);
             overflow: hidden;
@@ -200,7 +200,7 @@
         }
         
         .feature-card {
-            background-color: white;
+            background-color: var(--card-bg);
             border-radius: var(--border-radius);
             padding: 1.5rem;
             border: 1px solid var(--gray-200);
@@ -391,6 +391,36 @@
             .enterprise-hero p {
                 font-size: 1rem;
             }
+        }
+        
+        /* Dark mode overrides */
+        [data-theme="dark"] .pricing-card,
+        [data-theme="dark"] .feature-card {
+            border-color: var(--card-border);
+        }
+        
+        [data-theme="dark"] .pricing-header {
+            background-color: var(--gray-50);
+            border-color: var(--gray-300);
+        }
+        
+        [data-theme="dark"] .pricing-card:hover .pricing-header {
+            background-color: rgba(0, 120, 255, 0.1);
+        }
+        
+        [data-theme="dark"] .pricing-title,
+        [data-theme="dark"] .feature-card h4 {
+            color: var(--gray-800);
+        }
+        
+        [data-theme="dark"] .pricing-features li {
+            color: var(--gray-700);
+        }
+        
+        [data-theme="dark"] .pricing-subtitle,
+        [data-theme="dark"] .pricing-period,
+        [data-theme="dark"] .feature-card p {
+            color: var(--gray-600);
         }
     </style>
 </head>

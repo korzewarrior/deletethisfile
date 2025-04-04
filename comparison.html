@@ -51,7 +51,7 @@
         }
         
         .comparison-section {
-            background-color: white;
+            background-color: var(--card-bg);
             border-radius: var(--border-radius);
             padding: 2.5rem;
             margin-bottom: 2.5rem;
@@ -113,7 +113,7 @@
         }
         
         .comparison-table tr {
-            background-color: white;
+            background-color: var(--card-bg);
             border-bottom: 1px solid var(--gray-200);
         }
         
@@ -176,7 +176,7 @@
         }
         
         .competitor-card {
-            background-color: white;
+            background-color: var(--card-bg);
             border-radius: var(--border-radius);
             padding: 1.5rem;
             margin-bottom: 1.5rem;
@@ -392,6 +392,36 @@
                 margin-right: 0;
                 margin-bottom: 1rem;
             }
+        }
+        
+        /* Dark mode overrides */
+        [data-theme="dark"] .comparison-section h3 {
+            color: var(--primary-light);
+        }
+        
+        [data-theme="dark"] .feature-name {
+            color: var(--gray-800);
+        }
+        
+        [data-theme="dark"] .comparison-table td.highlighted {
+            background-color: rgba(0, 120, 255, 0.1);
+        }
+        
+        [data-theme="dark"] .feature-disclaimer {
+            background-color: var(--gray-50);
+            color: var(--gray-700);
+        }
+        
+        [data-theme="dark"] .competitor-info h4 {
+            color: var(--gray-800);
+        }
+        
+        [data-theme="dark"] .competitor-verdict {
+            color: var(--gray-700);
+        }
+        
+        [data-theme="dark"] .security-meter h3 {
+            color: var(--gray-800);
         }
     </style>
 </head>
