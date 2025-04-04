@@ -369,13 +369,13 @@
         /* Dark mode overrides for team page */
         [data-theme="dark"] .team-name,
         [data-theme="dark"] .value-title {
-            color: var(--gray-800);
+            color: var(--gray-200);
         }
         
         [data-theme="dark"] .team-bio,
         [data-theme="dark"] .value-desc,
         [data-theme="dark"] .awards-section p {
-            color: var(--gray-700);
+            color: var(--gray-400);
         }
         
         [data-theme="dark"] .team-title,
@@ -391,16 +391,22 @@
         
         [data-theme="dark"] .team-fun-fact {
             background-color: rgba(0, 120, 255, 0.1);
-            color: var(--gray-700);
+            color: var(--gray-400);
             border-left: 3px solid var(--primary-light);
         }
         
         [data-theme="dark"] .team-card {
-            background-color: var(--gray-100);
+            background-color: var(--gray-800);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+        
+        [data-theme="dark"] .team-card-content {
+            background-color: var(--gray-800);
         }
         
         [data-theme="dark"] .award-name {
-            color: var(--gray-800);
+            color: var(--gray-300);
         }
         
         [data-theme="dark"] .award-year {
@@ -408,7 +414,7 @@
         }
         
         [data-theme="dark"] .award-logo {
-            background-color: var(--gray-100);
+            background-color: var(--gray-700);
         }
         
         [data-theme="dark"] .award-item:hover .award-logo {
@@ -417,7 +423,11 @@
         }
         
         [data-theme="dark"] .awards-section p[style] {
-            color: var(--gray-600) !important;
+            color: var(--gray-500) !important;
+        }
+        
+        [data-theme="dark"] .values-title {
+            color: var(--gray-300);
         }
     </style>
 </head>
