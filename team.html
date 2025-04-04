@@ -368,31 +368,48 @@
         
         /* Dark mode overrides for team page */
         [data-theme="dark"] .team-name,
-        [data-theme="dark"] .value-title {
-            color: var(--gray-50);
+        [data-theme="dark"] .value-title,
+        [data-theme="dark"] .values-title,
+        [data-theme="dark"] .team-section h3,
+        [data-theme="dark"] .awards-section h3 {
+            color: white; /* Pure white for maximum readability */
         }
         
         [data-theme="dark"] .team-bio,
         [data-theme="dark"] .value-desc,
-        [data-theme="dark"] .awards-section p {
-            color: var(--gray-100);
+        [data-theme="dark"] .awards-section p,
+        [data-theme="dark"] .values-section p {
+            color: white; /* Pure white for maximum readability */
         }
         
         [data-theme="dark"] .team-title,
         [data-theme="dark"] .value-icon,
-        [data-theme="dark"] .team-fun-fact strong {
-            color: #4fa8ff;
+        [data-theme="dark"] .team-fun-fact strong,
+        [data-theme="dark"] .award-year {
+            color: #78c2ff; /* Very bright blue */
         }
         
         [data-theme="dark"] .team-badge {
-            background-color: rgba(0, 120, 255, 0.25);
-            color: #4fa8ff;
+            background-color: rgba(79, 168, 255, 0.3); /* Brighter background */
+            color: white; /* White text on blue background */
         }
         
         [data-theme="dark"] .team-fun-fact {
-            background-color: rgba(0, 120, 255, 0.15);
-            color: var(--gray-100);
-            border-left: 3px solid #4fa8ff;
+            background-color: rgba(79, 168, 255, 0.2);
+            color: white; /* White text */
+            border-left: 3px solid #78c2ff;
+        }
+        
+        [data-theme="dark"] .award-name {
+            color: white; /* Pure white for maximum readability */
+        }
+        
+        [data-theme="dark"] .award-logo {
+            filter: brightness(1.5) !important; /* Make logos brighter */
+        }
+        
+        [data-theme="dark"] .awards-section p[style] {
+            color: #cccccc !important; /* Force brighter color for footnote */
         }
         
         [data-theme="dark"] .team-card {
@@ -403,31 +420,6 @@
         
         [data-theme="dark"] .team-card-content {
             background-color: #2a3038;
-        }
-        
-        [data-theme="dark"] .award-name {
-            color: var(--gray-200);
-        }
-        
-        [data-theme="dark"] .award-year {
-            color: var(--primary-light);
-        }
-        
-        [data-theme="dark"] .award-logo {
-            background-color: var(--gray-700);
-        }
-        
-        [data-theme="dark"] .award-item:hover .award-logo {
-            filter: grayscale(0) opacity(1);
-            box-shadow: 0 0 10px rgba(0, 120, 255, 0.3);
-        }
-        
-        [data-theme="dark"] .awards-section p[style] {
-            color: var(--gray-300) !important;
-        }
-        
-        [data-theme="dark"] .values-title {
-            color: var(--gray-200);
         }
         
         [data-theme="dark"] .team-card-content p {
