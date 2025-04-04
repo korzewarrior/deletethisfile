@@ -1382,4 +1382,17 @@ footer a:hover {
 
 #theme-switch:hover {
     transform: rotate(30deg);
+}
+
+/* Logo link styling */
+.logo-link {
+    display: flex;
+    align-items: center;
+    text-decoration: none;
+    color: inherit;
+}
+
+.logo-link:hover {
+    text-decoration: none;
+    color: inherit;
 } 
