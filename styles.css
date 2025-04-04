@@ -896,6 +896,7 @@ footer a:hover {
 @media (max-width: 768px) {
     .features, #stats {
         flex-direction: column;
+        grid-template-columns: 1fr;
     }
     
     .feature, .stat-box {
@@ -974,6 +975,91 @@ footer a:hover {
         display: block;
         border-radius: 0;
         margin: 0.1rem 0;
+    }
+    
+    .achievement-grid {
+        grid-template-columns: 1fr 1fr;
+    }
+    
+    .status-icon {
+        margin-top: 0.15rem;
+    }
+    
+    .stat-value {
+        font-size: 2.2rem;
+    }
+}
+
+/* Additional mobile optimizations for extra small screens */
+@media (max-width: 480px) {
+    .container {
+        padding: 0.75rem;
+    }
+    
+    #stats {
+        grid-template-columns: 1fr;
+        gap: 1rem;
+    }
+    
+    .features {
+        grid-template-columns: 1fr;
+        gap: 1rem;
+    }
+    
+    .stat-box {
+        padding: 1.25rem 1rem;
+    }
+    
+    .stat-value {
+        font-size: 2rem;
+    }
+    
+    .stat-icon {
+        width: 40px;
+        height: 40px;
+        line-height: 40px;
+        font-size: 1.3rem;
+    }
+    
+    .achievement-grid {
+        grid-template-columns: 1fr;
+        gap: 0.75rem;
+    }
+    
+    .achievement-card {
+        padding: 0.75rem;
+    }
+    
+    .feature {
+        padding: 1.25rem;
+    }
+    
+    .feature-icon {
+        width: 50px;
+        height: 50px;
+        line-height: 50px;
+        font-size: 1.75rem;
+    }
+    
+    .enterprise-callout {
+        padding: 1.5rem;
+    }
+    
+    #drop-zone {
+        padding: 2rem 1rem;
+        min-height: 180px;
+    }
+    
+    .icon-container .icon {
+        width: 60px;
+        height: 60px;
+        line-height: 60px;
+        font-size: 1.75rem;
+    }
+    
+    .pulse-ring {
+        width: 60px;
+        height: 60px;
     }
 }
 
