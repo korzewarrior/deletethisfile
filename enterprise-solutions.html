@@ -1,0 +1,632 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Enterprise Solutions for DeleteThisFile - Secure file deletion for organizations">
+    <meta name="keywords" content="enterprise solutions, secure deletion, corporate licensing, data security, compliance">
+    <title>Enterprise Solutions | DeleteThisFile</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        /* Specific styles for enterprise page */
+        .enterprise-hero {
+            background: var(--primary-gradient);
+            color: white;
+            border-radius: var(--border-radius);
+            padding: 3rem 2rem;
+            text-align: center;
+            margin-bottom: 3rem;
+            box-shadow: var(--box-shadow-lg);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .enterprise-hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            right: 0;
+            bottom: 0;
+            left: 0;
+            background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='100' height='100' viewBox='0 0 100 100'%3E%3Cpath fill='%23ffffff' fill-opacity='0.05' d='M11 18c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm48 25c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm-43-7c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm63 31c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM34 90c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm56-76c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM12 86c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm28-65c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm23-11c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm-6 60c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm29 22c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zM32 63c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm57-13c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm-9-21c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM60 91c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM35 41c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM12 60c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2z'%3E%3C/path%3E%3C/svg%3E");
+        }
+        
+        .enterprise-hero h2 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            font-weight: var(--font-weight-bold);
+            position: relative;
+            z-index: 1;
+        }
+        
+        .enterprise-hero p {
+            font-size: 1.2rem;
+            max-width: 700px;
+            margin: 0 auto 2rem;
+            opacity: 0.9;
+            position: relative;
+            z-index: 1;
+        }
+        
+        .enterprise-section {
+            margin-bottom: 3rem;
+        }
+        
+        .enterprise-section h3 {
+            font-size: 1.75rem;
+            color: var(--primary-color);
+            margin-bottom: 1.5rem;
+            font-weight: var(--font-weight-semibold);
+            position: relative;
+            padding-bottom: 0.5rem;
+            display: inline-block;
+        }
+        
+        .enterprise-section h3::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 40px;
+            height: 3px;
+            background: var(--primary-gradient);
+            border-radius: 50px;
+        }
+        
+        .pricing-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+        
+        .pricing-card {
+            background-color: white;
+            border-radius: var(--border-radius);
+            border: 1px solid var(--gray-200);
+            overflow: hidden;
+            transition: var(--transition);
+            box-shadow: var(--box-shadow);
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .pricing-card:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--box-shadow-lg);
+        }
+        
+        .pricing-header {
+            background-color: var(--gray-100);
+            padding: 1.5rem;
+            text-align: center;
+            border-bottom: 1px solid var(--gray-200);
+        }
+        
+        .pricing-title {
+            font-size: 1.3rem;
+            font-weight: var(--font-weight-bold);
+            color: var(--gray-800);
+            margin-bottom: 0.5rem;
+        }
+        
+        .pricing-price {
+            font-size: 2.5rem;
+            font-weight: var(--font-weight-bold);
+            color: var(--primary-color);
+            margin-bottom: 0.5rem;
+            line-height: 1;
+        }
+        
+        .pricing-period {
+            font-size: 0.9rem;
+            color: var(--gray-600);
+            display: block;
+            margin-top: 0.5rem;
+        }
+        
+        .pricing-subtitle {
+            font-size: 0.9rem;
+            color: var(--gray-600);
+        }
+        
+        .pricing-body {
+            padding: 1.5rem;
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .pricing-features {
+            list-style: none;
+            padding: 0;
+            margin: 0 0 1.5rem;
+            flex-grow: 1;
+        }
+        
+        .pricing-features li {
+            margin-bottom: 0.75rem;
+            padding-left: 1.5rem;
+            position: relative;
+            font-size: 0.95rem;
+            color: var(--gray-700);
+        }
+        
+        .pricing-features li::before {
+            content: '✓';
+            position: absolute;
+            left: 0;
+            color: var(--success-color);
+            font-weight: var(--font-weight-bold);
+        }
+        
+        .pricing-button {
+            text-align: center;
+            margin-top: auto;
+        }
+        
+        .btn-contact {
+            display: inline-block;
+            padding: 0.75rem 1.5rem;
+            background: var(--primary-gradient);
+            color: white;
+            border-radius: var(--border-radius);
+            text-decoration: none;
+            font-weight: var(--font-weight-medium);
+            transition: var(--transition);
+            width: 100%;
+        }
+        
+        .btn-contact:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--box-shadow);
+        }
+        
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+        
+        .feature-card {
+            background-color: white;
+            border-radius: var(--border-radius);
+            padding: 1.5rem;
+            border: 1px solid var(--gray-200);
+            box-shadow: var(--box-shadow);
+            transition: var(--transition);
+        }
+        
+        .feature-card:hover {
+            transform: translateY(-3px);
+            box-shadow: var(--box-shadow-lg);
+        }
+        
+        .feature-card-icon {
+            font-size: 2rem;
+            color: var(--primary-color);
+            margin-bottom: 1rem;
+        }
+        
+        .feature-card h4 {
+            font-size: 1.1rem;
+            color: var(--gray-800);
+            margin-bottom: 0.75rem;
+            font-weight: var(--font-weight-semibold);
+        }
+        
+        .feature-card p {
+            font-size: 0.95rem;
+            color: var(--gray-600);
+            margin: 0;
+        }
+        
+        .featured-plan {
+            position: relative;
+            border: 2px solid var(--primary-color);
+        }
+        
+        .featured-plan::before {
+            content: 'MOST POPULAR';
+            position: absolute;
+            top: -12px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: var(--primary-color);
+            color: white;
+            font-size: 0.7rem;
+            font-weight: var(--font-weight-bold);
+            padding: 0.25rem 1rem;
+            border-radius: 20px;
+            letter-spacing: 1px;
+        }
+        
+        .pricing-badge {
+            display: inline-block;
+            padding: 0.25rem 0.5rem;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            font-weight: var(--font-weight-bold);
+            background-color: rgba(0, 86, 179, 0.1);
+            color: var(--primary-color);
+            margin-top: 0.5rem;
+        }
+        
+        .contact-form {
+            background-color: white;
+            border-radius: var(--border-radius);
+            padding: 2rem;
+            box-shadow: var(--box-shadow);
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+        
+        .form-label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: var(--font-weight-medium);
+            color: var(--gray-700);
+            font-size: 0.95rem;
+        }
+        
+        .form-control {
+            width: 100%;
+            padding: 0.75rem;
+            border: 1px solid var(--gray-300);
+            border-radius: var(--border-radius);
+            background-color: var(--gray-50);
+            color: var(--gray-800);
+            font-family: 'Inter', sans-serif;
+            font-size: 0.95rem;
+        }
+        
+        .form-control:focus {
+            outline: none;
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 3px rgba(0, 86, 179, 0.1);
+        }
+        
+        .btn-submit {
+            display: inline-block;
+            padding: 0.75rem 1.5rem;
+            background: var(--primary-gradient);
+            color: white;
+            border: none;
+            border-radius: var(--border-radius);
+            font-weight: var(--font-weight-medium);
+            cursor: pointer;
+            transition: var(--transition);
+            width: 100%;
+            font-family: 'Inter', sans-serif;
+            font-size: 1rem;
+        }
+        
+        .btn-submit:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--box-shadow);
+        }
+        
+        .back-to-home {
+            display: inline-block;
+            margin-top: 2rem;
+            padding: 0.75rem 1.5rem;
+            background: var(--primary-gradient);
+            color: white;
+            border-radius: var(--border-radius);
+            text-decoration: none;
+            font-weight: var(--font-weight-medium);
+            transition: var(--transition);
+            box-shadow: var(--box-shadow);
+            text-align: center;
+        }
+        
+        .back-to-home:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--box-shadow-lg);
+        }
+        
+        .contact-info {
+            margin-top: 2rem;
+            padding: 1.5rem;
+            background-color: var(--gray-100);
+            border-radius: var(--border-radius);
+            text-align: center;
+        }
+        
+        .contact-info p {
+            margin-bottom: 0.5rem;
+            color: var(--gray-700);
+        }
+        
+        .contact-info strong {
+            color: var(--primary-color);
+        }
+        
+        @media (max-width: 768px) {
+            .pricing-grid {
+                grid-template-columns: 1fr;
+                gap: 1.5rem;
+            }
+            
+            .features-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .enterprise-hero h2 {
+                font-size: 2rem;
+            }
+            
+            .enterprise-hero p {
+                font-size: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <div class="logo-container">
+                <div class="logo-3d-container">
+                    <div class="logo-3d">
+                        <div class="logo-face logo-front"></div>
+                        <div class="logo-face logo-back"></div>
+                        <div class="logo-face logo-right"></div>
+                        <div class="logo-face logo-left"></div>
+                        <div class="logo-face logo-top"></div>
+                        <div class="logo-face logo-bottom"></div>
+                    </div>
+                </div>
+                <div class="brand-text">
+                    <h1>DeleteThisFile<span class="tld">.com</span></h1>
+                    <p class="tagline">Enterprise-Grade Secure File Deletion Solution</p>
+                </div>
+            </div>
+        </header>
+
+        <div class="enterprise-hero">
+            <h2>Enterprise Solutions</h2>
+            <p>Military-grade file deletion technology for organizations with mission-critical security requirements and compliance needs.</p>
+        </div>
+
+        <div class="enterprise-section">
+            <h3>Volume Licensing Solutions</h3>
+            
+            <div class="pricing-grid">
+                <div class="pricing-card">
+                    <div class="pricing-header">
+                        <div class="pricing-title">Corporate Standard</div>
+                        <div class="pricing-price">$9,995<span class="pricing-period">/year</span></div>
+                        <div class="pricing-subtitle">Up to 250 users</div>
+                        <div class="pricing-badge">Most Affordable</div>
+                    </div>
+                    <div class="pricing-body">
+                        <ul class="pricing-features">
+                            <li>Unlimited secure deletions</li>
+                            <li>Standard compliance reporting</li>
+                            <li>Basic admin dashboard</li>
+                            <li>Email support</li>
+                            <li>Quarterly security patches</li>
+                            <li>Single-domain deployment</li>
+                            <li>Standard API access</li>
+                        </ul>
+                        <div class="pricing-button">
+                            <a href="#contact-form" class="btn-contact">Request Quote</a>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="pricing-card featured-plan">
+                    <div class="pricing-header">
+                        <div class="pricing-title">Corporate Premium</div>
+                        <div class="pricing-price">$24,995<span class="pricing-period">/year</span></div>
+                        <div class="pricing-subtitle">Up to 1,000 users</div>
+                        <div class="pricing-badge">Most Popular</div>
+                    </div>
+                    <div class="pricing-body">
+                        <ul class="pricing-features">
+                            <li>Unlimited secure deletions</li>
+                            <li>Advanced compliance reporting</li>
+                            <li>Full admin dashboard & analytics</li>
+                            <li>Priority email and phone support</li>
+                            <li>Monthly security patches</li>
+                            <li>Multi-domain deployment</li>
+                            <li>Extended API access</li>
+                            <li>Custom deletion policies</li>
+                            <li>Security integration services</li>
+                        </ul>
+                        <div class="pricing-button">
+                            <a href="#contact-form" class="btn-contact">Request Quote</a>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="pricing-card">
+                    <div class="pricing-header">
+                        <div class="pricing-title">Enterprise Elite</div>
+                        <div class="pricing-price">$75,000+<span class="pricing-period">/year</span></div>
+                        <div class="pricing-subtitle">Unlimited users</div>
+                        <div class="pricing-badge">Custom Solutions</div>
+                    </div>
+                    <div class="pricing-body">
+                        <ul class="pricing-features">
+                            <li>Unlimited secure deletions</li>
+                            <li>Custom compliance frameworks</li>
+                            <li>Executive dashboard & real-time analytics</li>
+                            <li>24/7 dedicated support team</li>
+                            <li>Custom security patches</li>
+                            <li>Global deployment options</li>
+                            <li>Full enterprise API integration</li>
+                            <li>Custom deletion protocols</li>
+                            <li>On-premise deployment available</li>
+                            <li>Dedicated success manager</li>
+                            <li>Annual security audit included</li>
+                        </ul>
+                        <div class="pricing-button">
+                            <a href="#contact-form" class="btn-contact">Contact Sales</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="enterprise-section">
+            <h3>Enterprise Key Features</h3>
+            
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-card-icon">🛡️</div>
+                    <h4>Military-Grade Security</h4>
+                    <p>DOD 5220.22-M compliant data sanitization protocols with custom security levels available for classified environments.</p>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-card-icon">📊</div>
+                    <h4>Compliance Reporting</h4>
+                    <p>Detailed audit trails and automated compliance reporting for GDPR, HIPAA, SOC 2, ISO 27001, and custom regulatory frameworks.</p>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-card-icon">🔄</div>
+                    <h4>Seamless Integration</h4>
+                    <p>Integrate with existing security infrastructure, SSO providers, and document management systems via our enterprise API.</p>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-card-icon">🔐</div>
+                    <h4>Role-Based Access Control</h4>
+                    <p>Granular permission settings allow administrators to control deletion capabilities across your organization.</p>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-card-icon">🌐</div>
+                    <h4>Global Deployment</h4>
+                    <p>Deploy to multiple locations with region-specific data handling to meet local compliance requirements.</p>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-card-icon">⚡</div>
+                    <h4>High-Volume Processing</h4>
+                    <p>Enterprise-grade infrastructure handles mass deletion operations at scale without performance degradation.</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="enterprise-section">
+            <h3>Specialized Industry Solutions</h3>
+            
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-card-icon">🏛️</div>
+                    <h4>Government & Defense</h4>
+                    <p>Specialized solutions for classified environments with custom security protocols and on-premise deployment options.</p>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-card-icon">🏥</div>
+                    <h4>Healthcare & Pharma</h4>
+                    <p>HIPAA-compliant secure deletion workflows designed specifically for patient data and clinical research files.</p>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-card-icon">💰</div>
+                    <h4>Financial Services</h4>
+                    <p>Secure deletion technologies aligned with financial regulations including PCI DSS, GLBA, and international banking standards.</p>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-card-icon">⚖️</div>
+                    <h4>Legal & Compliance</h4>
+                    <p>Custom retention and deletion policies with cryptographic verification for legal and regulated industries.</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="enterprise-section" id="contact-form">
+            <h3>Contact Enterprise Sales</h3>
+            
+            <div class="contact-form">
+                <form>
+                    <div class="form-group">
+                        <label for="name" class="form-label">Full Name *</label>
+                        <input type="text" id="name" class="form-control" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="company" class="form-label">Company Name *</label>
+                        <input type="text" id="company" class="form-control" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="email" class="form-label">Business Email *</label>
+                        <input type="email" id="email" class="form-control" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="phone" class="form-label">Phone Number</label>
+                        <input type="tel" id="phone" class="form-control">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="users" class="form-label">Number of Users</label>
+                        <select id="users" class="form-control">
+                            <option value="">Please select</option>
+                            <option value="1-250">1-250 users</option>
+                            <option value="251-1000">251-1000 users</option>
+                            <option value="1001-5000">1001-5000 users</option>
+                            <option value="5000+">5000+ users</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="plan" class="form-label">Interested In</label>
+                        <select id="plan" class="form-control">
+                            <option value="">Please select</option>
+                            <option value="corporate-standard">Corporate Standard</option>
+                            <option value="corporate-premium">Corporate Premium</option>
+                            <option value="enterprise-elite">Enterprise Elite</option>
+                            <option value="custom">Custom Solution</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="message" class="form-label">Additional Information</label>
+                        <textarea id="message" class="form-control" rows="4"></textarea>
+                    </div>
+                    
+                    <button type="submit" class="btn-submit">Submit Request</button>
+                </form>
+                
+                <div class="contact-info">
+                    <p>For immediate assistance, contact our Enterprise Team directly:</p>
+                    <p><strong>Phone:</strong> +1 (800) 555-0123</p>
+                    <p><strong>Email:</strong> enterprise@deletethisfile.com</p>
+                </div>
+            </div>
+            
+            <div style="text-align: center; margin-top: 2rem;">
+                <a href="index.html" class="back-to-home">Return to Home</a>
+            </div>
+        </div>
+
+        <footer>
+            <div class="compliance">
+                <span class="compliance-badge">ISO 27001</span>
+                <span class="compliance-badge">GDPR</span>
+                <span class="compliance-badge">HIPAA</span>
+                <span class="compliance-badge">SOC 2</span>
+                <span class="compliance-badge">NIST 800-88</span>
+            </div>
+            <p>Files are processed using proprietary zero-knowledge architecture. No data is transmitted externally.</p>
+            <p>© 2025 DeleteThisFile.com | <a href="privacy-policy.html">Privacy Policy</a> | <a href="terms-of-service.html">Terms of Service</a> | <a href="enterprise-solutions.html">Enterprise Solutions</a></p>
+        </footer>
+    </div>
+</body>
+</html> 
