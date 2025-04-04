@@ -1340,6 +1340,7 @@ footer a:hover {
 .achievement-card:hover {
     transform: translateY(-3px);
     box-shadow: var(--box-shadow);
+    background-color: rgba(0, 86, 179, 0.05);
 }
 
 .achievement-card::before {
@@ -1380,8 +1381,8 @@ footer a:hover {
 }
 
 .achievement-card:hover .tooltip {
-    visibility: visible;
-    opacity: 1;
+    visibility: visible !important;
+    opacity: 1 !important;
     transform: translateX(-50%) translateY(0);
 }
 
@@ -1616,6 +1617,13 @@ footer a:hover {
     background-color: #333;
     color: white;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.4);
+    visibility: hidden;
+    opacity: 0;
+}
+
+[data-theme="dark"] .achievement-card:hover .tooltip {
+    visibility: visible !important;
+    opacity: 1 !important;
 }
 
 [data-theme="dark"] .achievement-card .tooltip::after {

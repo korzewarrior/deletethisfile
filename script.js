@@ -1369,4 +1369,29 @@
             fileProcessor.handleFileSelection();
         });
     }
+
+    // Add event listeners for achievement card hover states
+    document.addEventListener('DOMContentLoaded', function() {
+        const achievementCards = document.querySelectorAll('.achievement-card');
+        
+        achievementCards.forEach(card => {
+            const tooltip = card.querySelector('.tooltip');
+            
+            card.addEventListener('mouseenter', function() {
+                if (tooltip) {
+                    tooltip.style.visibility = 'visible';
+                    tooltip.style.opacity = '1';
+                    tooltip.style.transform = 'translateX(-50%) translateY(0)';
+                }
+            });
+            
+            card.addEventListener('mouseleave', function() {
+                if (tooltip) {
+                    tooltip.style.visibility = 'hidden';
+                    tooltip.style.opacity = '0';
+                    tooltip.style.transform = 'translateX(-50%) translateY(5px)';
+                }
+            });
+        });
+    });
 })(); 
