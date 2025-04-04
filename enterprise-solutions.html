@@ -281,7 +281,7 @@
         }
         
         .contact-form {
-            background-color: white;
+            background-color: var(--card-bg);
             border-radius: var(--border-radius);
             padding: 2rem;
             box-shadow: var(--box-shadow);
@@ -421,6 +421,39 @@
         [data-theme="dark"] .pricing-period,
         [data-theme="dark"] .feature-card p {
             color: var(--gray-600);
+        }
+        
+        /* Dark mode overrides for contact form */
+        [data-theme="dark"] .contact-form {
+            background-color: var(--card-bg);
+            border-color: var(--card-border);
+        }
+        
+        [data-theme="dark"] .form-label {
+            color: var(--gray-700);
+        }
+        
+        [data-theme="dark"] .form-control {
+            background-color: var(--gray-100);
+            border-color: var(--gray-300);
+            color: var(--gray-800);
+        }
+        
+        [data-theme="dark"] .form-control:focus {
+            border-color: var(--primary-light);
+            box-shadow: 0 0 0 3px rgba(0, 120, 255, 0.2);
+        }
+        
+        [data-theme="dark"] .contact-info {
+            background-color: var(--gray-50);
+        }
+        
+        [data-theme="dark"] .contact-info p {
+            color: var(--gray-700);
+        }
+        
+        [data-theme="dark"] .contact-info strong {
+            color: var(--primary-light);
         }
     </style>
 </head>
