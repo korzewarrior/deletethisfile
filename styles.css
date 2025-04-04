@@ -272,16 +272,34 @@ h1::after {
     text-align: center;
     margin-bottom: 2rem;
     background-color: white;
-    transition: var(--transition);
+    transition: all 0.4s ease-in-out;
+    overflow: hidden;
     cursor: pointer;
     box-shadow: var(--box-shadow);
     position: relative;
     z-index: 5;
 }
 
+/* Add a visual helper */
+#drop-zone::after {
+    content: '📁 → 🗑️';
+    position: absolute;
+    bottom: 10px;
+    right: 10px;
+    font-size: 1.5rem;
+    opacity: 0.3;
+    z-index: 6;
+}
+
 #drop-zone:hover {
     border-color: var(--primary-color);
     box-shadow: var(--box-shadow-lg);
+}
+
+#drop-zone:hover::after {
+    opacity: 0.6;
+    transform: scale(1.1);
+    transition: all 0.2s ease;
 }
 
 #drop-zone.dragover {
@@ -1007,12 +1025,46 @@ footer a:hover {
     text-align: center;
     transition: var(--transition);
     position: relative;
-    overflow: hidden;
+    overflow: visible;
+    cursor: help;
 }
 
 .achievement-card:hover {
     transform: translateY(-3px);
     box-shadow: var(--box-shadow);
+}
+
+.achievement-card::before {
+    content: none;
+}
+
+.achievement-card .tooltip {
+    visibility: hidden;
+    width: 200px;
+    background-color: var(--gray-800);
+    color: white;
+    text-align: center;
+    border-radius: var(--border-radius);
+    padding: 8px 12px;
+    position: absolute;
+    z-index: 10;
+    bottom: 125%;
+    left: 50%;
+    transform: translateX(-50%);
+    opacity: 0;
+    transition: opacity 0.3s, visibility 0.3s, transform 0.3s;
+    box-shadow: var(--box-shadow);
+    font-size: 0.8rem;
+    font-weight: var(--font-weight-normal);
+    pointer-events: none;
+    transform: translateX(-50%) translateY(5px);
+    white-space: normal;
+}
+
+.achievement-card:hover .tooltip {
+    visibility: visible;
+    opacity: 1;
+    transform: translateX(-50%) translateY(0);
 }
 
 .achievement-card.locked {
@@ -1027,6 +1079,12 @@ footer a:hover {
     opacity: 0.7;
 }
 
+.achievement-card.unlocked {
+    background-color: rgba(10, 140, 70, 0.1);
+    border-color: rgba(10, 140, 70, 0.3);
+    box-shadow: 0 0 15px rgba(10, 140, 70, 0.1);
+}
+
 .achievement-card-icon {
     font-size: 2rem;
     margin-bottom: 0.75rem;
@@ -1039,6 +1097,11 @@ footer a:hover {
     color: var(--gray-700);
 }
 
+.achievement-card.unlocked .achievement-card-title {
+    color: var(--success-color);
+    font-weight: var(--font-weight-semibold);
+}
+
 .achievement-card.unlocked::before {
     content: '';
     position: absolute;
@@ -1048,7 +1111,7 @@ footer a:hover {
     height: 0;
     border-style: solid;
     border-width: 0 25px 25px 0;
-    border-color: transparent var(--primary-color) transparent transparent;
+    border-color: transparent var(--success-color) transparent transparent;
 }
 
 /* Confetti Canvas */
@@ -1127,4 +1190,59 @@ footer a:hover {
     .achievement-grid {
         grid-template-columns: 1fr;
     }
+}
+
+/* Styles for drop zone when in processing mode */
+#drop-zone.processing-mode {
+    border-style: solid;
+    border-color: var(--primary-color);
+    border-width: 1px;
+    padding: 2rem;
+    text-align: center;
+    background-color: white;
+    transition: all 0.5s ease;
+    box-shadow: var(--box-shadow-lg);
+    cursor: default;
+    animation: process-transform 0.5s ease-out;
+}
+
+@keyframes process-transform {
+    0% {
+        opacity: 0.8;
+        transform: scale(0.98);
+    }
+    50% {
+        opacity: 0.9;
+        transform: scale(1.02);
+    }
+    100% {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+#drop-zone.processing-mode h2 {
+    font-size: 1.5rem;
+    color: var(--primary-color);
+    margin-bottom: 1.5rem;
+    font-weight: var(--font-weight-semibold);
+    position: relative;
+    display: inline-block;
+}
+
+#drop-zone.processing-mode h2::after {
+    content: '';
+    position: absolute;
+    bottom: -8px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 40px;
+    height: 3px;
+    background: var(--primary-gradient);
+    border-radius: 50px;
+}
+
+/* Remove the visual helper for processing mode */
+#drop-zone.processing-mode::after {
+    display: none;
 } 

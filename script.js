@@ -11,9 +11,9 @@
     
     // Core application configuration
     const CONFIG = {
-        animationDuration: 300,
-        processingSteps: 10,
-        completionDelay: 2000,
+        animationDuration: 500,
+        processingSteps: 15,
+        completionDelay: 2500,
         notificationTimeout: 3000,
         analyticsEndpoint: null, // Enterprise version only
         securityLevel: 'maximum',
@@ -244,6 +244,12 @@
                 if (achievementCard && userState.achievements[achievementId].earned) {
                     achievementCard.classList.remove('locked');
                     achievementCard.classList.add('unlocked');
+                    
+                    // Update the tooltip to show when it was earned
+                    const tooltipSpan = achievementCard.querySelector('.tooltip');
+                    if (tooltipSpan) {
+                        tooltipSpan.textContent = `Achievement earned: ${userState.achievements[achievementId].title} - ${userState.achievements[achievementId].description}`;
+                    }
                 }
             });
             
@@ -335,6 +341,7 @@
         // UI element references
         const elements = {
             dropZone: document.getElementById('drop-zone'),
+            dropZoneOriginal: null, // Will hold a clone of the original drop zone
             deletionProgress: document.getElementById('deletion-progress'),
             progressFill: document.querySelector('.progress-fill'),
             deletionMessage: document.getElementById('deletion-message'),
@@ -346,6 +353,14 @@
             achievementPopup: document.getElementById('achievement-popup'),
             achievementName: document.getElementById('achievement-name'),
             confettiCanvas: document.getElementById('confetti-canvas')
+        };
+        
+        // Reference to file processor - will be set later
+        let fileProcessor = null;
+
+        // Set the file processor reference
+        const setFileProcessor = (processor) => {
+            fileProcessor = processor;
         };
         
         // Session statistics
@@ -478,6 +493,9 @@
             elements.achievementPopup = clone;
             elements.achievementName = clone.querySelector('#achievement-name');
             
+            // Trigger confetti for achievement unlocked
+            if (confetti) confetti.start();
+            
             // Hide after animation completes
             setTimeout(() => {
                 if (clone.parentNode) {
@@ -548,24 +566,105 @@
                     levelIndicator.classList.remove('level-up');
                 }, 1000);
                 
-                // Celebration for level up!
+                // Celebration for level up! - Also trigger confetti for level up
                 if (confetti) confetti.start();
             }
         };
         
         // Show processing interface
         const showProcessingInterface = () => {
-            elements.dropZone.classList.add('hidden');
-            elements.deletionProgress.classList.remove('hidden');
+            // Instead of just saving the innerHTML, let's clone the entire element
+            // to preserve all event listeners and state
+            if (!elements.dropZoneOriginal) {
+                elements.dropZoneOriginal = elements.dropZone.cloneNode(true);
+            }
+            
+            // Create processing interface content
+            const processingContent = `
+                <h2>Processing Secure Deletion</h2>
+                <div class="progress-container">
+                    <div class="progress-bar">
+                        <div class="progress-fill"></div>
+                    </div>
+                    <div class="progress-status">
+                        <div class="status-icon"></div>
+                        <p id="deletion-message">Initializing secure deletion protocol...</p>
+                    </div>
+                </div>
+            `;
+            
+            // Apply processing styles to drop zone
+            elements.dropZone.classList.add('processing-mode');
+            elements.dropZone.innerHTML = processingContent;
+            
+            // Update element references to the new DOM elements inside the drop zone
+            elements.progressFill = elements.dropZone.querySelector('.progress-fill');
+            elements.deletionMessage = elements.dropZone.querySelector('#deletion-message');
+            
+            // Add busy state to body
             document.body.classList.add('busy-deleting');
+            
+            // Hide the original deletion progress panel (we don't need it anymore)
+            if (elements.deletionProgress) {
+                elements.deletionProgress.classList.add('hidden');
+            }
         };
         
         // Reset interface after processing
         const resetInterface = () => {
+            // Reset progress
+            if (elements.progressFill) {
             elements.progressFill.style.width = '0';
-            elements.deletionProgress.classList.add('hidden');
+            }
+            
+            // Restore the drop zone using the cloned original
+            if (elements.dropZone && elements.dropZoneOriginal) {
+                // Get the parent node of the current drop zone
+                const parent = elements.dropZone.parentNode;
+                
+                // Create a fresh clone of the original drop zone
+                const freshDropZone = elements.dropZoneOriginal.cloneNode(true);
+                
+                // Replace the current drop zone with the fresh clone
+                parent.replaceChild(freshDropZone, elements.dropZone);
+                
+                // Update the element reference
+                elements.dropZone = freshDropZone;
+                
+                // The cloned node will need event listeners reattached
+                // This will be done in the bindEventHandlers function when resetInterface completes
+            } else {
+                // Fallback if the original isn't available
+                if (elements.dropZone) {
+                    elements.dropZone.classList.remove('processing-mode');
             elements.dropZone.classList.remove('hidden');
+                    elements.dropZone.classList.remove('busy');
+                    elements.dropZone.classList.remove('dragover');
+                    
+                    elements.dropZone.style.border = '2px dashed var(--gray-400)';
+                    elements.dropZone.style.backgroundColor = 'white';
+                    elements.dropZone.style.boxShadow = 'var(--box-shadow)';
+                    elements.dropZone.style.cursor = 'pointer';
+                    
+                    // Fallback to recreating the default content
+                    elements.dropZone.innerHTML = `
+                        <div class="drop-zone-content">
+                            <div class="icon-container">
+                                <div class="icon">🗑️</div>
+                                <div class="pulse-ring"></div>
+                            </div>
+                            <p>Drag Files From Your Computer For Secure Deletion</p>
+                            <p class="small">Drag a file from your file explorer/finder or Linux file manager</p>
+                        </div>
+                    `;
+                }
+            }
+            
+            // Remove busy state
             document.body.classList.remove('busy-deleting');
+            
+            // Signal that event handlers need to be rebound
+            return true;
         };
         
         // Update progress bar
@@ -637,8 +736,8 @@
                 elements.statsContainer.classList.remove('shake');
             }, 500);
             
-            // Trigger confetti celebration
-            if (confetti) confetti.start();
+            // Only trigger confetti for achievements, not regular deletions
+            // Removed: if (confetti) confetti.start();
         };
         
         // Update status message
@@ -699,7 +798,8 @@
             updateStatusMessage,
             updateSessionData,
             showAchievement,
-            animatePointsAdded
+            animatePointsAdded,
+            setFileProcessor
         };
     }
     
@@ -718,10 +818,15 @@
                 "Implementing cryptographic sanitization...",
                 "Executing DOD 5220.22-M compliant wipe...",
                 "Applying zero-knowledge data shredding...",
+                "Scanning for nested file structures...",
                 "Overwriting with military-grade encryption patterns...",
-                "Performing multi-pass random data replacement...",
+                "Performing quantum-resistant data replacement...",
                 "Securing deletion verification hashes...",
+                "Implementing blockchain verification sequence...",
+                "Bypassing potential data recovery vectors...",
+                "Neutralizing forensic recovery methods...",
                 "Executing final unrecoverable data elimination...",
+                "Applying NSA-level sanitization protocol...",
                 "Verifying secure deletion compliance..."
             ];
             
@@ -875,7 +980,12 @@
                     
                     // Reset after delay
                     setTimeout(() => {
-                        ui.resetInterface();
+                        // Reset the interface and rebind events if needed
+                        const needsRebind = ui.resetInterface();
+                        if (needsRebind) {
+                            // Re-bind event handlers for the fresh drop zone
+                            bindDropZoneEvents(ui.elements.dropZone, this, ui);
+                        }
                         processingActive = false;
                     }, CONFIG.completionDelay);
                 }
@@ -912,10 +1022,59 @@
      * Binds all event handlers to DOM elements
      */
     function bindEventHandlers(fileProcessor, ui) {
+        // Store the fileProcessor reference in the UI controller
+        ui.setFileProcessor(fileProcessor);
+        
+        // Get the drop zone from UI elements
         const dropZone = ui.elements.dropZone;
         
-        // Simplified approach - reset to basics
+        // Add debugging info
+        console.log('Setting up drag and drop handlers for browsers');
         
+        // Call our extracted function for binding events
+        bindDropZoneEvents(dropZone, fileProcessor, ui);
+        
+        // Safari/Webkit fix: make the entire document able to receive drops
+        document.addEventListener('dragover', function(e) {
+            e.preventDefault();
+            e.stopPropagation();
+            return false;
+        }, false);
+        
+        document.addEventListener('drop', function(e) {
+            // Only prevent default if not in the dropzone (to avoid double handling)
+            if (!dropZone.contains(e.target)) {
+                e.preventDefault();
+                e.stopPropagation();
+                console.log('Document drop prevented (outside drop zone)');
+            }
+            return false;
+        }, false);
+        
+        // Add simple styling for drag state
+        const style = document.createElement('style');
+        style.id = 'drag-helper-styles';
+        style.textContent = `
+            #drop-zone.dragover {
+                border-color: var(--primary-color);
+                background-color: rgba(0, 86, 179, 0.05);
+                box-shadow: var(--box-shadow-lg);
+                transform: scale(1.02);
+                transition: all 0.2s ease;
+            }
+        `;
+        
+        // Remove any existing style to prevent duplication
+        const existingStyle = document.getElementById('drag-helper-styles');
+        if (existingStyle && existingStyle.parentNode) {
+            existingStyle.parentNode.removeChild(existingStyle);
+        }
+        
+        document.head.appendChild(style);
+    }
+
+    // Function to bind drop zone event handlers - extracted for reuse
+    function bindDropZoneEvents(dropZone, fileProcessor, ui) {
         // Simple file drop handler
         function handleFiles(files) {
             if (!files || files.length === 0) {
@@ -929,33 +1088,273 @@
             }
             
             console.log(`Processing ${files.length} files...`);
-            fileProcessor.processFiles(files);
+            fileProcessor.processFiles(Array.from(files)); // Ensure it's an array for consistent processing
         }
         
-        // Basic drag and drop handlers
-        dropZone.addEventListener('dragover', function(e) {
-            e.preventDefault();
-            e.stopPropagation();
-            this.classList.add('dragover');
+        // Prevent default behavior for all drag events to allow dropping
+        ['dragenter', 'dragover', 'dragleave', 'drop'].forEach(eventName => {
+            dropZone.addEventListener(eventName, preventDefaults, false);
         });
         
-        dropZone.addEventListener('dragleave', function(e) {
+        function preventDefaults(e) {
             e.preventDefault();
             e.stopPropagation();
-            this.classList.remove('dragover');
+            return false; // For older browsers
+        }
+        
+        // Add visual feedback for drag events
+        ['dragenter', 'dragover'].forEach(eventName => {
+            dropZone.addEventListener(eventName, highlight, false);
         });
         
+        ['dragleave', 'drop'].forEach(eventName => {
+            dropZone.addEventListener(eventName, unhighlight, false);
+        });
+        
+        function highlight(e) {
+            preventDefaults(e);
+            dropZone.classList.add('dragover');
+            
+            // Update drop zone text for better UX
+            const textElement = dropZone.querySelector('p');
+            if (textElement && textElement.dataset.originalText === undefined) {
+                textElement.dataset.originalText = textElement.textContent;
+                textElement.textContent = "Release to Delete File";
+            }
+        }
+        
+        function unhighlight(e) {
+            preventDefaults(e);
+            dropZone.classList.remove('dragover');
+            
+            // Restore original text
+            const textElement = dropZone.querySelector('p');
+            if (textElement && textElement.dataset.originalText !== undefined) {
+                textElement.textContent = textElement.dataset.originalText;
+                delete textElement.dataset.originalText;
+            }
+        }
+        
+        // Handle the drop
         dropZone.addEventListener('drop', function(e) {
             console.log('Drop event fired');
             e.preventDefault();
             e.stopPropagation();
-            this.classList.remove('dragover');
             
-            // Simply use the files directly from the event
-            const files = e.dataTransfer.files;
-            console.log('Files from drop:', files?.length || 0);
+            // Debug dataTransfer object
+            console.log('Drop event details:', {
+                types: Array.from(e.dataTransfer.types || []),
+                filesCount: e.dataTransfer.files?.length || 0,
+                itemsCount: e.dataTransfer.items?.length || 0
+            });
+            
+            // Try multiple methods to get files
+            let files = [];
+            
+            // Method 1: Direct files property
+            if (e.dataTransfer.files && e.dataTransfer.files.length > 0) {
+                files = e.dataTransfer.files;
+                console.log('Method 1: Got', files.length, 'files from dataTransfer.files');
+            } 
+            // Method 2: DataTransferItemList
+            else if (e.dataTransfer.items && e.dataTransfer.items.length > 0) {
+                console.log('Method 2: Trying to get files from dataTransfer items...');
+                
+                // First check if this is text content that might be usable
+                const hasStringContent = Array.from(e.dataTransfer.items).some(item => item.kind === 'string');
+                let textProcessingStarted = false;
+                
+                if (hasStringContent) {
+                    console.log('String content detected in drag');
+                    
+                    // Look for different types of string content
+                    const types = Array.from(e.dataTransfer.types);
+                    console.log('Available types:', types);
+                    
+                    // Special handling for Linux file managers (Hyprland, etc.)
+                    if (types.includes('text/x-moz-url') || types.includes('text/uri-list')) {
+                        textProcessingStarted = true;
+                        
+                        // Get the URL/path string
+                        const uriData = e.dataTransfer.getData(types.includes('text/x-moz-url') ? 'text/x-moz-url' : 'text/uri-list');
+                        console.log('Linux file path/URL content:', uriData);
+                        
+                        // For Linux, files might be separated by newlines
+                        const uriLines = uriData.split('\n').filter(line => line.trim().length > 0);
+                        const fileList = [];
+                        
+                        // Process each line that represents a file
+                        for (let i = 0; i < uriLines.length; i++) {
+                            // Skip every other line if it doesn't start with file:// as it might be just the filename
+                            if (i % 2 === 0 || uriLines[i].startsWith('file://')) {
+                                let filePath = uriLines[i].trim();
+                                let fileName = '';
+                                
+                                // Try to get the filename from the next line if available
+                                if (i + 1 < uriLines.length && !uriLines[i+1].startsWith('file://')) {
+                                    fileName = uriLines[i+1].trim();
+                                } else {
+                                    // Extract filename from the path
+                                    if (filePath.startsWith('file://')) {
+                                        const pathParts = decodeURIComponent(filePath.replace('file://', '')).split('/');
+                                        fileName = pathParts[pathParts.length - 1];
+                                    } else {
+                                        fileName = `dragged-file-${i+1}.txt`;
+                                    }
+                                }
+                                
+                                // Clean up the path for display
+                                if (filePath.startsWith('file://')) {
+                                    filePath = decodeURIComponent(filePath.replace('file://', ''));
+                                }
+                                
+                                console.log('Extracted path:', filePath);
+                                console.log('Extracted filename:', fileName);
+                                
+                                // Create a synthetic file with the path info
+                                const fileContent = `File contents from: ${filePath}`;
+                                const blob = new Blob([fileContent], {type: 'text/plain'});
+                                const file = new File([blob], fileName || `dragged-file-${i+1}.txt`, {type: 'text/plain'});
+                                
+                                fileList.push(file);
+                            }
+                        }
+                        
+                        if (fileList.length > 0) {
+                            console.log(`Created ${fileList.length} file representations from Linux paths`);
+                            
+                            // Show informative notification that looks like a real deletion is happening
+                            ui.showNotification('Preparing files for secure deletion...', 'info');
+                            
+                            handleFiles(fileList);
+                return;
+            }
+                    }
+                    
+                    // Prioritize different content types
+                    if (types.includes('text/plain')) {
+                        textProcessingStarted = true;
+                        
+                        // Find the item with text/plain
+                        for (let i = 0; i < e.dataTransfer.items.length; i++) {
+                            if (e.dataTransfer.items[i].kind === 'string' && e.dataTransfer.items[i].type === 'text/plain') {
+                                e.dataTransfer.items[i].getAsString(function(text) {
+                                    console.log('Plain text content:', text.substring(0, 100) + (text.length > 100 ? '...' : ''));
+                                    
+                                    if (text.trim().length > 0) {
+                                        // Create a synthetic file from the text
+                                        const blob = new Blob([text], {type: 'text/plain'});
+                                        const file = new File([blob], 'dragged-text.txt', {type: 'text/plain'});
+                                        
+                                        console.log('Created file from text:', file.name, file.size, 'bytes');
+                                        
+                                        // Show a notification that we've converted text to a file
+                                        ui.showNotification('Preparing file for secure deletion...', 'info');
+                                        
+                                        handleFiles([file]);
+                                    } else {
+                                        ui.showNotification('The dragged text was empty. Try dropping files from your computer instead.', 'error');
+                                    }
+                                });
+                                break;
+                            }
+                        }
+                    } else if (types.includes('text/html')) {
+                        textProcessingStarted = true;
+                        
+                        // Find the item with text/html
+                        for (let i = 0; i < e.dataTransfer.items.length; i++) {
+                            if (e.dataTransfer.items[i].kind === 'string' && e.dataTransfer.items[i].type === 'text/html') {
+                                e.dataTransfer.items[i].getAsString(function(html) {
+                                    console.log('HTML content:', html.substring(0, 100) + (html.length > 100 ? '...' : ''));
+                                    
+                                    if (html.trim().length > 0) {
+                                        // Create a synthetic file from the HTML
+                                        const blob = new Blob([html], {type: 'text/html'});
+                                        const file = new File([blob], 'dragged-content.html', {type: 'text/html'});
+                                        
+                                        console.log('Created file from HTML:', file.name, file.size, 'bytes');
+                                        
+                                        // Show a notification that we've converted HTML to a file
+                                        ui.showNotification('Preparing file for secure deletion...', 'info');
+                                        
+                                        handleFiles([file]);
+                                    } else {
+                                        ui.showNotification('The dragged HTML was empty. Try dropping files from your computer instead.', 'error');
+                                    }
+                                });
+                                break;
+                            }
+                        }
+                    } else if (types.includes('text/uri-list')) {
+                        textProcessingStarted = true;
+                        
+                        // Find the item with text/uri-list
+                        const url = e.dataTransfer.getData('text/uri-list');
+                        console.log('URL content:', url);
+                        
+                        if (url.trim().length > 0) {
+                            // Create a text file with the URL
+                            const blob = new Blob([url], {type: 'text/plain'});
+                            const file = new File([blob], 'dragged-url.txt', {type: 'text/plain'});
+                            
+                            console.log('Created file from URL:', file.name, file.size, 'bytes');
+                            
+                            // Show a notification
+                            ui.showNotification('Preparing file for secure deletion...', 'info');
+                            
+                            handleFiles([file]);
+                        } else {
+                            ui.showNotification('The dragged URL was empty. Try dropping files from your computer instead.', 'error');
+                        }
+                    }
+                    
+                    if (textProcessingStarted) {
+                        return; // Skip further processing since we're handling the string content
+                    }
+                }
+                
+                // Continue with normal file processing
+                for (let i = 0; i < e.dataTransfer.items.length; i++) {
+                    // Check if this item is a file
+                    if (e.dataTransfer.items[i].kind === 'file') {
+                        const file = e.dataTransfer.items[i].getAsFile();
+                        if (file) {
+                            files.push(file);
+                            console.log(`Found file: ${file.name} (${file.type})`);
+                        }
+                    } else {
+                        console.log(`Item ${i} is not a file, it's a ${e.dataTransfer.items[i].kind}`);
+                    }
+                }
+                console.log(`Retrieved ${files.length} files from items`);
+            }
+            
+            // If we still don't have files, check if this is a special type of drag
+            if (files.length === 0) {
+                // Check if there are any URLs being dropped
+                if (e.dataTransfer.types && Array.from(e.dataTransfer.types).includes('text/uri-list')) {
+                    const url = e.dataTransfer.getData('text/uri-list');
+                    console.log('Dropped URL:', url);
+                    ui.showNotification('URL detected. Please use Secure URL Protocol for web addresses.', 'error');
+                    return;
+                } else if (e.dataTransfer.types && Array.from(e.dataTransfer.types).includes('text/plain')) {
+                    const text = e.dataTransfer.getData('text/plain');
+                    console.log('Dropped text:', text);
+                    ui.showNotification('Unstructured text detected. Please drop a valid file for secure deletion.', 'error');
+                    return;
+                }
+                
+                // If we got here and still don't have files, show a helpful message
+                ui.showNotification('No valid files detected. Please ensure you\'re dragging a complete file.', 'error');
+                console.warn('No valid files found in drop event');
+                return;
+            }
+            
+            // Process the files if any were dropped
+            console.log(`Final file count: ${files.length} files to process`);
             handleFiles(files);
-        });
+        }, false);
         
         // Click handler for traditional file selection
         dropZone.addEventListener('click', function(e) {
@@ -965,33 +1364,5 @@
             }
             fileProcessor.handleFileSelection();
         });
-        
-        // Clean up any browser-specific drop issues
-        document.addEventListener('dragover', function(e) {
-            e.preventDefault(); // Prevent browser default behavior
-        });
-        
-        document.addEventListener('drop', function(e) {
-            e.preventDefault(); // Prevent browser from opening the file
-        });
-        
-        // Add simple styling for drag state
-        const style = document.createElement('style');
-        style.id = 'drag-helper-styles';
-        style.textContent = `
-            #drop-zone.dragover {
-                border-color: var(--primary-color);
-                background-color: rgba(0, 86, 179, 0.05);
-                box-shadow: var(--box-shadow-lg);
-            }
-        `;
-        
-        // Remove any existing style to prevent duplication
-        const existingStyle = document.getElementById('drag-helper-styles');
-        if (existingStyle && existingStyle.parentNode) {
-            existingStyle.parentNode.removeChild(existingStyle);
-        }
-        
-        document.head.appendChild(style);
     }
 })(); 
