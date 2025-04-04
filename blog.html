@@ -307,6 +307,8 @@
             border-radius: var(--border-radius);
             margin-bottom: 1rem;
             font-family: inherit;
+            background-color: var(--card-bg);
+            color: var(--gray-700);
         }
         
         .form-button {
@@ -483,6 +485,25 @@
         [data-theme="dark"] .tag {
             background-color: rgba(0, 86, 179, 0.2);
         }
+        
+        [data-theme="dark"] .featured-post-img,
+        [data-theme="dark"] .blog-post-img,
+        [data-theme="dark"] .popular-post-img {
+            background-color: var(--gray-700);
+        }
+        
+        [data-theme="dark"] .popular-post {
+            color: var(--gray-300);
+        }
+        
+        [data-theme="dark"] .form-button:hover {
+            box-shadow: 0 4px 12px rgba(0, 86, 179, 0.4);
+        }
+        
+        [data-theme="dark"] .featured-post-date,
+        [data-theme="dark"] .blog-post-date {
+            border-left-color: rgba(255, 255, 255, 0.1);
+        }
     </style>
 </head>
 <body>
@@ -627,7 +648,7 @@
             <div class="blog-sidebar">
                 <div class="sidebar-section">
                     <h3 class="sidebar-title">About This Blog</h3>
-                    <p style="color: var(--gray-700); line-height: 1.6; margin-bottom: 0;">The Void Blog provides cutting-edge insights and research into the world of secure data deletion and digital privacy. Our content is written by the world's foremost experts in quantum cryptography, digital forensics, and data security.</p>
+                    <p>The Void Blog provides cutting-edge insights and research into the world of secure data deletion and digital privacy. Our content is written by the world's foremost experts in quantum cryptography, digital forensics, and data security.</p>
                 </div>
                 
                 <div class="sidebar-section">
