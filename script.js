@@ -929,8 +929,15 @@
         // Track if deletion is in progress
         let processingActive = false;
         
+        // Create the processor object first so we can reference it within functions
+        const processor = {
+            processFiles: null,
+            handleFileSelection: null,
+            isProcessingActive: () => processingActive
+        };
+        
         // Process dropped files
-        const processFiles = (files) => {
+        processor.processFiles = (files) => {
             if (processingActive) {
                 ui.showBusyState();
                 return;
@@ -984,7 +991,8 @@
                         const needsRebind = ui.resetInterface();
                         if (needsRebind) {
                             // Re-bind event handlers for the fresh drop zone
-                            bindDropZoneEvents(ui.elements.dropZone, fileProcessor, ui);
+                            // Using the processor object we defined earlier
+                            bindDropZoneEvents(ui.elements.dropZone, processor, ui);
                         }
                         processingActive = false;
                     }, CONFIG.completionDelay);
@@ -993,7 +1001,7 @@
         };
         
         // Handle file selection
-        const handleFileSelection = () => {
+        processor.handleFileSelection = () => {
             if (processingActive) {
                 ui.showBusyState();
                 return;
@@ -1004,18 +1012,14 @@
             fileSelector.multiple = true;
             fileSelector.onchange = (e) => {
                 if (e.target.files.length > 0) {
-                    processFiles(e.target.files);
+                    processor.processFiles(e.target.files);
                 }
             };
             fileSelector.click();
         };
         
-        // Public interface
-        return {
-            processFiles,
-            handleFileSelection,
-            isProcessingActive: () => processingActive
-        };
+        // Return the processor object
+        return processor;
     }
     
     /**
