@@ -1011,7 +1011,7 @@
         
         // Central handler for file drops
         function handleFileDrop(e) {
-            console.log('File drop detected');
+            console.log('File drop detected', e);
             
             if (fileProcessor.isProcessingActive()) {
                 ui.showBusyState();
@@ -1019,14 +1019,50 @@
             }
             
             try {
-                const files = e.dataTransfer?.files;
-                console.log('Files detected:', files?.length);
+                // Access the dataTransfer object more safely with explicit debugging
+                const dataTransfer = e.dataTransfer;
+                console.log('DataTransfer object:', dataTransfer);
+                
+                if (!dataTransfer) {
+                    console.error('DataTransfer object is null or undefined');
+                    ui.showNotification('Browser error: Unable to access dropped files. Please try clicking to select files instead.', 'error');
+                    return;
+                }
+                
+                // Check for items first (works better in some browsers)
+                if (dataTransfer.items && dataTransfer.items.length > 0) {
+                    console.log('Using dataTransfer.items, count:', dataTransfer.items.length);
+                    
+                    // Convert DataTransferItemList to array of files
+                    const files = [];
+                    for (let i = 0; i < dataTransfer.items.length; i++) {
+                        const item = dataTransfer.items[i];
+                        if (item.kind === 'file') {
+                            const file = item.getAsFile();
+                            if (file) files.push(file);
+                        }
+                    }
+                    
+                    console.log('Processed files from items:', files.length);
+                    
+                    if (files.length > 0) {
+                        fileProcessor.processFiles(files);
+                        return;
+                    }
+                }
+                
+                // Fall back to files property
+                const files = dataTransfer.files;
+                console.log('Using dataTransfer.files, count:', files ? files.length : 0);
                 
                 if (files && files.length > 0) {
+                    // Create a proper FileList or Array from the files
+                    const fileArray = Array.from(files);
+                    console.log('File details:', fileArray.map(f => ({ name: f.name, size: f.size, type: f.type })));
                     fileProcessor.processFiles(files);
                 } else {
                     console.log('No valid files in drop event');
-                    ui.showNotification('No valid files detected. Please try again.', 'error');
+                    ui.showNotification('No valid files detected. Please try again or use the click to upload option.', 'error');
                 }
             } catch (error) {
                 console.error('Error processing dropped files:', error);
