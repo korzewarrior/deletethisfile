@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DeleteThisFile.com</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>DeleteThisFile.com</h1>
+            <p class="tagline">The most satisfying way to delete unwanted files!</p>
+        </header>
+
+        <div id="drop-zone">
+            <div class="drop-zone-content">
+                <div class="icon">🗑️</div>
+                <p>Drag & Drop Files Here</p>
+                <p class="small">Files are processed securely on your device</p>
+            </div>
+        </div>
+
+        <div id="deletion-progress" class="hidden">
+            <h2>Deleting...</h2>
+            <div class="progress-bar">
+                <div class="progress-fill"></div>
+            </div>
+            <p id="deletion-message">Preparing to delete your files...</p>
+        </div>
+
+        <div id="stats">
+            <p><span id="deleted-count">0</span> files deleted this session</p>
+            <p><span id="total-count">0</span> files deleted by all users</p>
+        </div>
+
+        <footer>
+            <p>Files are processed entirely on your device. No data is sent to our servers.</p>
+            <p>© 2025 DeleteThisFile.com - Making digital space since 2025</p>
+        </footer>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html> 
