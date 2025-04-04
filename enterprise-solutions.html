@@ -250,7 +250,7 @@
         .featured-plan::before {
             content: 'MOST POPULAR';
             position: absolute;
-            top: -12px;
+            top: -10px;
             left: 50%;
             transform: translateX(-50%);
             background: var(--primary-gradient);
@@ -261,6 +261,7 @@
             border-radius: 20px;
             letter-spacing: 1px;
             box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            z-index: 1;
         }
         
         .featured-plan:hover {
@@ -666,18 +667,11 @@
         </div>
 
         <footer>
-            <div class="compliance">
-                <span class="compliance-badge">ISO 27001</span>
-                <span class="compliance-badge">GDPR</span>
-                <span class="compliance-badge">HIPAA</span>
-                <span class="compliance-badge">SOC 2</span>
-                <span class="compliance-badge">NIST 800-88</span>
-            </div>
-            <p>Files are processed using proprietary zero-knowledge architecture. No data is transmitted externally.</p>
-            <p>© 2025 DeleteThisFile.com | <a href="index.html">Home</a> | <a href="privacy-policy.html">Privacy Policy</a> | <a href="terms-of-service.html">Terms of Service</a></p>
+            <!-- Footer content will be injected by footer.js -->
         </footer>
     </div>
 
     <script src="theme.js"></script>
+    <script src="footer.js"></script>
 </body>
 </html> 
