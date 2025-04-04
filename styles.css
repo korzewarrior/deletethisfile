@@ -93,6 +93,8 @@
     --header-bg: #1a1a1a;
     --footer-bg: var(--gray-100);
     --footer-color: var(--gray-600);
+    --text-color: var(--gray-800);
+    --border-color: var(--gray-300);
     
     /* Achievement colors for dark theme */
     --achievement-bg: #1a2e47;
@@ -104,6 +106,113 @@
     --box-shadow-sm: 0 2px 4px rgba(0, 0, 0, 0.2);
     --box-shadow: 0 4px 6px rgba(0, 0, 0, 0.25);
     --box-shadow-lg: 0 10px 25px rgba(0, 0, 0, 0.35);
+}
+
+/* Dark mode specific overrides */
+[data-theme="dark"] .policy-container,
+[data-theme="dark"] .drop-zone,
+[data-theme="dark"] .certificate-container,
+[data-theme="dark"] .verification-badge,
+[data-theme="dark"] .badge-inner,
+[data-theme="dark"] .achievement-popup .achievement-content,
+[data-theme="dark"] .stat-box,
+[data-theme="dark"] .feature,
+[data-theme="dark"] #deletion-progress {
+    background-color: var(--card-bg);
+    color: var(--body-color);
+    border-color: var(--card-border);
+}
+
+[data-theme="dark"] .badge-inner {
+    color: var(--primary-color);
+}
+
+[data-theme="dark"] .seal-image::after {
+    background-color: var(--card-bg);
+}
+
+[data-theme="dark"] .drop-zone-content p {
+    color: var(--gray-700);
+}
+
+[data-theme="dark"] .policy-container h2,
+[data-theme="dark"] .policy-container h3 {
+    color: var(--primary-light);
+}
+
+[data-theme="dark"] .policy-container p,
+[data-theme="dark"] .policy-container li {
+    color: var(--gray-700);
+}
+
+[data-theme="dark"] .policy-container li strong {
+    color: var(--gray-800);
+}
+
+[data-theme="dark"] .testimonials-page .testimonial-card,
+[data-theme="dark"] .blog-post,
+[data-theme="dark"] .blog-sidebar,
+[data-theme="dark"] .team-card {
+    background-color: var(--card-bg);
+    color: var(--body-color);
+}
+
+[data-theme="dark"] .comparison-table,
+[data-theme="dark"] .comparison-table th,
+[data-theme="dark"] .comparison-table td {
+    border-color: var(--gray-300);
+}
+
+[data-theme="dark"] .comparison-table th {
+    background-color: var(--gray-200);
+}
+
+[data-theme="dark"] .comparison-table tr:nth-child(odd) {
+    background-color: var(--gray-100);
+}
+
+[data-theme="dark"] .comparison-table tr:nth-child(even) {
+    background-color: var(--gray-50);
+}
+
+[data-theme="dark"] .award-item {
+    background-color: var(--gray-100);
+    border-color: var(--gray-300);
+}
+
+[data-theme="dark"] .action-button:not(.primary) {
+    background-color: var(--gray-200);
+    color: var(--gray-800);
+}
+
+[data-theme="dark"] .achievement-section {
+    background-color: var(--card-bg);
+}
+
+[data-theme="dark"] .notification {
+    color: white;
+}
+
+[data-theme="dark"] .qr-code::before {
+    filter: invert(0.9);
+}
+
+[data-theme="dark"] .watermark {
+    color: rgba(0, 86, 179, 0.1);
+}
+
+[data-theme="dark"] .important-notice {
+    background-color: rgba(0, 86, 179, 0.1);
+}
+
+[data-theme="dark"] .signature-name,
+[data-theme="dark"] .signature-title {
+    color: var(--gray-700);
+}
+
+[data-theme="dark"] .tooltip {
+    background-color: var(--gray-800);
+    color: var(--gray-100);
 }
 
 * {
