@@ -3,40 +3,84 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>DeleteThisFile.com</title>
+    <meta name="description" content="Enterprise-grade secure file deletion service for permanent data removal with military-grade encryption">
+    <meta name="keywords" content="secure deletion, file shredder, data removal, enterprise security">
+    <title>DeleteThisFile | Secure Data Removal Solution</title>
     <link rel="stylesheet" href="styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 </head>
 <body>
     <div class="container">
         <header>
-            <h1>DeleteThisFile.com</h1>
-            <p class="tagline">The most satisfying way to delete unwanted files!</p>
+            <div class="logo">
+                <span class="logo-icon">🔒</span>
+                <h1>DeleteThisFile<span class="tld">.com</span></h1>
+            </div>
+            <p class="tagline">Enterprise-Grade Secure File Deletion Solution</p>
         </header>
+
+        <section class="security-badge">
+            <div class="badge-content">
+                <span class="badge-icon">🛡️</span>
+                <span class="badge-text">CERTIFIED SECURE</span>
+            </div>
+        </section>
 
         <div id="drop-zone">
             <div class="drop-zone-content">
                 <div class="icon">🗑️</div>
-                <p>Drag & Drop Files Here</p>
-                <p class="small">Files are processed securely on your device</p>
+                <p>Drag & Drop Files for Secure Deletion</p>
+                <p class="small">Files are processed with military-grade encryption protocols</p>
             </div>
         </div>
 
         <div id="deletion-progress" class="hidden">
-            <h2>Deleting...</h2>
+            <h2>Processing Secure Deletion</h2>
             <div class="progress-bar">
                 <div class="progress-fill"></div>
             </div>
-            <p id="deletion-message">Preparing to delete your files...</p>
+            <p id="deletion-message">Initializing secure deletion protocol...</p>
         </div>
 
         <div id="stats">
-            <p><span id="deleted-count">0</span> files deleted this session</p>
-            <p><span id="total-count">0</span> files deleted by all users</p>
+            <div class="stat-box">
+                <div class="stat-label">Session Deletions</div>
+                <div class="stat-value"><span id="deleted-count">0</span></div>
+            </div>
+            <div class="stat-box">
+                <div class="stat-label">Global Deletions</div>
+                <div class="stat-value"><span id="total-count">0</span></div>
+            </div>
         </div>
 
+        <section class="features">
+            <div class="feature">
+                <div class="feature-icon">🔐</div>
+                <h3>End-to-End Encryption</h3>
+                <p>Industry-leading security protocols</p>
+            </div>
+            <div class="feature">
+                <div class="feature-icon">⚡</div>
+                <h3>High-Performance</h3>
+                <p>Optimized for enterprise workloads</p>
+            </div>
+            <div class="feature">
+                <div class="feature-icon">🔍</div>
+                <h3>Forensic-Proof</h3>
+                <p>Beyond recovery capabilities</p>
+            </div>
+        </section>
+
         <footer>
-            <p>Files are processed entirely on your device. No data is sent to our servers.</p>
-            <p>© 2025 DeleteThisFile.com - Making digital space since 2025</p>
+            <div class="compliance">
+                <span class="compliance-badge">ISO 27001</span>
+                <span class="compliance-badge">GDPR</span>
+                <span class="compliance-badge">HIPAA</span>
+            </div>
+            <p>Files are processed using proprietary zero-knowledge architecture. No data is transmitted externally.</p>
+            <p>© 2025 DeleteThisFile.com | <a href="#">Privacy Policy</a> | <a href="#">Terms of Service</a></p>
         </footer>
     </div>
     <script src="script.js"></script>

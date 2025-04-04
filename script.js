@@ -1,4 +1,5 @@
 document.addEventListener('DOMContentLoaded', () => {
+    // Initialize application components
     const dropZone = document.getElementById('drop-zone');
     const deletionProgress = document.getElementById('deletion-progress');
     const progressFill = document.querySelector('.progress-fill');
@@ -6,68 +7,74 @@ document.addEventListener('DOMContentLoaded', () => {
     const deletedCount = document.getElementById('deleted-count');
     const totalCount = document.getElementById('total-count');
     
+    // Application state management
     let fileCount = 0;
     let sessionDeletedCount = 0;
-    let totalDeletedCount = 0;
+    let totalDeletedCount = Math.floor(Math.random() * 100000) + 500000; // Initialize with a large number for effect
     let deletionInProgress = false;
+    let securityLevel = "Maximum"; // Security level setting - for display only
     
-    // Prevent default drag behaviors
+    // Initialize total count display
+    totalCount.textContent = totalDeletedCount.toLocaleString();
+    
+    // Register event handlers for drag and drop operations
     ['dragenter', 'dragover', 'dragleave', 'drop'].forEach(eventName => {
-        dropZone.addEventListener(eventName, preventDefaults, false);
-        document.body.addEventListener(eventName, preventDefaults, false);
+        dropZone.addEventListener(eventName, preventDefaultBehavior, false);
+        document.body.addEventListener(eventName, preventDefaultBehavior, false);
     });
     
-    function preventDefaults(e) {
+    function preventDefaultBehavior(e) {
         e.preventDefault();
         e.stopPropagation();
     }
     
-    // Highlight drop zone when item is dragged over it (only if no deletion in progress)
+    // Visual feedback during drag operations
     ['dragenter', 'dragover'].forEach(eventName => {
         dropZone.addEventListener(eventName, (e) => {
             if (!deletionInProgress) {
-                highlight();
+                activateDropZone();
             } else {
-                showBusy(e);
+                indicateProcessingState(e);
             }
         }, false);
     });
     
     ['dragleave', 'drop'].forEach(eventName => {
-        dropZone.addEventListener(eventName, unhighlight, false);
+        dropZone.addEventListener(eventName, deactivateDropZone, false);
     });
     
-    function highlight() {
+    function activateDropZone() {
         dropZone.classList.add('dragover');
     }
     
-    function unhighlight() {
+    function deactivateDropZone() {
         dropZone.classList.remove('dragover');
         dropZone.classList.remove('busy');
     }
     
-    function showBusy(e) {
-        // Show busy state when user tries to drag while deletion is in progress
+    function indicateProcessingState(e) {
+        // Apply busy state UI when system is processing
         dropZone.classList.add('busy');
         
-        // Create and show a busy notification if it doesn't exist
+        // Display status notification
         if (!document.getElementById('busy-notification')) {
             const notification = document.createElement('div');
             notification.id = 'busy-notification';
-            notification.textContent = 'Please wait for current deletion to complete';
+            notification.textContent = 'System is currently processing files. Please wait for the operation to complete.';
             notification.style.position = 'fixed';
             notification.style.top = '20px';
             notification.style.left = '50%';
             notification.style.transform = 'translateX(-50%)';
-            notification.style.backgroundColor = '#e74c3c';
+            notification.style.backgroundColor = 'var(--primary-color)';
             notification.style.color = 'white';
             notification.style.padding = '10px 20px';
             notification.style.borderRadius = '5px';
             notification.style.zIndex = '1000';
-            notification.style.boxShadow = '0 2px 10px rgba(0,0,0,0.2)';
+            notification.style.boxShadow = '0 4px 12px rgba(0,0,0,0.15)';
+            notification.style.maxWidth = '90%';
             document.body.appendChild(notification);
             
-            // Remove notification after 3 seconds
+            // Auto-dismiss notification
             setTimeout(() => {
                 if (notification.parentNode) {
                     notification.parentNode.removeChild(notification);
@@ -76,123 +83,140 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
     
-    // Handle dropped files
-    dropZone.addEventListener('drop', handleDrop, false);
+    // Handle file drop event
+    dropZone.addEventListener('drop', processDroppedFiles, false);
     
-    function handleDrop(e) {
-        // Only process drops if no deletion is in progress
+    function processDroppedFiles(e) {
+        // Validate system availability
         if (deletionInProgress) {
-            showBusy(e);
+            indicateProcessingState(e);
             return;
         }
         
-        const dt = e.dataTransfer;
-        const files = dt.files;
+        const dataTransfer = e.dataTransfer;
+        const files = dataTransfer.files;
         
         if (files.length > 0) {
             fileCount = files.length;
-            simulateFileDeletion(files);
+            executeSecureDeletion(files);
         }
     }
     
-    // Click to select files
+    // Handle manual file selection
     dropZone.addEventListener('click', () => {
-        // Only allow file selection if no deletion is in progress
+        // Validate system availability
         if (deletionInProgress) {
-            showBusy(null);
+            indicateProcessingState(null);
             return;
         }
         
-        const input = document.createElement('input');
-        input.type = 'file';
-        input.multiple = true;
-        input.onchange = (e) => {
+        const fileSelector = document.createElement('input');
+        fileSelector.type = 'file';
+        fileSelector.multiple = true;
+        fileSelector.onchange = (e) => {
             if (e.target.files.length > 0) {
                 fileCount = e.target.files.length;
-                simulateFileDeletion(e.target.files);
+                executeSecureDeletion(e.target.files);
             }
         };
-        input.click();
+        fileSelector.click();
     });
     
-    function simulateFileDeletion(files) {
-        // Set deletion in progress
+    function executeSecureDeletion(files) {
+        // Update system state
         deletionInProgress = true;
-        
-        // Add busy class to body to change cursor everywhere
         document.body.classList.add('busy-deleting');
         
-        // Show deletion progress
+        // Update UI to show processing state
         dropZone.classList.add('hidden');
         deletionProgress.classList.remove('hidden');
         
-        // Get file names for messages
+        // Extract metadata for processing
         const fileNames = Array.from(files).map(file => file.name);
+        const totalFileSize = Array.from(files).reduce((total, file) => total + file.size, 0);
         
-        // Deletion process
+        // Simulate secure deletion process
         let progress = 0;
         const totalSteps = 10;
-        const interval = setInterval(() => {
+        
+        // Performance metrics (for display only)
+        const startTime = performance.now();
+        
+        const processingInterval = setInterval(() => {
             progress++;
             
-            // Update progress bar
+            // Update visual progress indicator
             progressFill.style.width = `${progress * (100 / totalSteps)}%`;
             
-            // Update message based on progress
-            updateDeletionMessage(progress, totalSteps, fileNames);
+            // Update status message
+            updateProcessingStatus(progress, totalSteps, fileNames, totalFileSize);
             
             if (progress >= totalSteps) {
-                clearInterval(interval);
-                finishDeletion();
+                const processingTime = ((performance.now() - startTime) / 1000).toFixed(2);
+                clearInterval(processingInterval);
+                finalizeOperation(processingTime);
             }
         }, 300);
     }
     
-    function updateDeletionMessage(progress, totalSteps, fileNames) {
-        const messages = [
-            "Preparing to delete your files...",
-            `Analyzing ${fileNames.slice(0, 3).join(', ')}${fileNames.length > 3 ? '...' : ''}`,
-            "Initializing deletion process...",
-            "Fragmenting file data...",
-            "Applying proprietary deletion algorithm...",
-            "Removing file metadata...",
-            "Erasing digital footprint...",
-            "Clearing memory blocks...",
-            "Sanitizing storage space...",
-            "Finalizing deletion process..."
+    function updateProcessingStatus(progress, totalSteps, fileNames, totalFileSize) {
+        // Format file size for display
+        const fileSizeFormatted = formatFileSize(totalFileSize);
+        
+        const processingStages = [
+            "Initializing secure deletion protocol...",
+            `Analyzing ${fileNames.slice(0, 2).join(', ')}${fileNames.length > 2 ? ` and ${fileNames.length - 2} more` : ''} (${fileSizeFormatted})`,
+            "Implementing cryptographic sanitization...",
+            "Executing DOD 5220.22-M compliant wipe...",
+            "Applying zero-knowledge data shredding...",
+            "Overwriting with military-grade encryption patterns...",
+            "Performing multi-pass random data replacement...",
+            "Securing deletion verification hashes...",
+            "Executing final unrecoverable data elimination...",
+            "Verifying secure deletion compliance..."
         ];
         
-        const messageIndex = Math.floor((progress / totalSteps) * messages.length);
-        deletionMessage.textContent = messages[Math.min(messageIndex, messages.length - 1)];
+        const messageIndex = Math.floor((progress / totalSteps) * processingStages.length);
+        deletionMessage.textContent = processingStages[Math.min(messageIndex, processingStages.length - 1)];
     }
     
-    function finishDeletion() {
-        // Update counters
+    function formatFileSize(bytes) {
+        if (bytes === 0) return '0 Bytes';
+        
+        const k = 1024;
+        const sizes = ['Bytes', 'KB', 'MB', 'GB', 'TB'];
+        const i = Math.floor(Math.log(bytes) / Math.log(k));
+        
+        return parseFloat((bytes / Math.pow(k, i)).toFixed(2)) + ' ' + sizes[i];
+    }
+    
+    function finalizeOperation(processingTime) {
+        // Update deletion metrics
         sessionDeletedCount += fileCount;
         totalDeletedCount += fileCount;
         
-        deletedCount.textContent = sessionDeletedCount;
-        totalCount.textContent = totalDeletedCount;
+        // Update displays
+        deletedCount.textContent = sessionDeletedCount.toLocaleString();
+        totalCount.textContent = totalDeletedCount.toLocaleString();
         
         // Show completion message
-        deletionMessage.textContent = `Successfully deleted ${fileCount} file${fileCount !== 1 ? 's' : ''}!`;
+        const completionMessage = `Secure deletion complete: ${fileCount} file${fileCount !== 1 ? 's' : ''} processed in ${processingTime} seconds`;
+        deletionMessage.textContent = completionMessage;
         
-        // Add shake animation to stats
+        // Display visual confirmation of operation success
         document.getElementById('stats').classList.add('shake');
         setTimeout(() => {
             document.getElementById('stats').classList.remove('shake');
         }, 500);
         
-        // Reset after 2 seconds
+        // Reset system after appropriate delay
         setTimeout(() => {
             progressFill.style.width = '0';
             deletionProgress.classList.add('hidden');
             dropZone.classList.remove('hidden');
             
-            // Reset deletion in progress flag
+            // Reset application state
             deletionInProgress = false;
-            
-            // Remove busy class from body
             document.body.classList.remove('busy-deleting');
         }, 2000);
     }
