@@ -984,7 +984,7 @@
                         const needsRebind = ui.resetInterface();
                         if (needsRebind) {
                             // Re-bind event handlers for the fresh drop zone
-                            bindDropZoneEvents(ui.elements.dropZone, this, ui);
+                            bindDropZoneEvents(ui.elements.dropZone, fileProcessor, ui);
                         }
                         processingActive = false;
                     }, CONFIG.completionDelay);
