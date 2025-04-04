@@ -405,7 +405,52 @@
         }
         
         [data-theme="dark"] .award-logo {
-            filter: brightness(1.5) !important; /* Make logos brighter */
+            background-color: #2d3748 !important;
+            border: 1px solid rgba(120, 194, 255, 0.3);
+            box-shadow: 0 0 15px rgba(0, 120, 255, 0.2);
+            filter: none !important;
+        }
+        
+        [data-theme="dark"] .award-item:hover .award-logo {
+            box-shadow: 0 0 20px rgba(0, 120, 255, 0.4);
+            transform: scale(1.05);
+            border-color: rgba(120, 194, 255, 0.5);
+        }
+        
+        /* Replace all award images with dark mode friendly versions */
+        [data-theme="dark"] .award-item:nth-child(1) .award-logo {
+            background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg xmlns='http://www.w3.org/2000/svg' version='1.1' baseProfile='full' width='180' height='80'%3E%3Crect width='100%25' height='100%25' fill='%232d3748'/%3E%3Cpath d='M90,20 L110,35 L100,60 L80,60 L70,35 Z' fill='%234a88c8' fill-opacity='0.6'/%3E%3Ccircle cx='90' cy='40' r='25' stroke='%2378c2ff' stroke-width='2' fill='none'/%3E%3Ctext x='50%25' y='50%25' font-size='16' text-anchor='middle' alignment-baseline='middle' font-family='Arial, sans-serif' fill='%23ffffff' font-weight='bold'%3E2025 Security%3Cbr /%3EInnovation Award%3C/text%3E%3C/svg%3E");
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+        }
+        
+        [data-theme="dark"] .award-item:nth-child(2) .award-logo {
+            background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg xmlns='http://www.w3.org/2000/svg' version='1.1' baseProfile='full' width='180' height='80'%3E%3Crect width='100%25' height='100%25' fill='%232d3748'/%3E%3Cpath d='M30,40 L60,20 L90,40 L150,40 L120,60 L60,60 Z' fill='%234a88c8' fill-opacity='0.5'/%3E%3Ccircle cx='90' cy='40' r='30' stroke='%2378c2ff' stroke-width='1.5' fill='none'/%3E%3Ccircle cx='90' cy='40' r='15' stroke='%2378c2ff' stroke-width='1' fill='none'/%3E%3Ctext x='50%25' y='50%25' font-size='16' text-anchor='middle' alignment-baseline='middle' font-family='Arial, sans-serif' fill='%23ffffff' font-weight='bold'%3EQuantum Computing%3Cbr /%3EBreakthrough Prize%3C/text%3E%3C/svg%3E");
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+        }
+        
+        [data-theme="dark"] .award-item:nth-child(3) .award-logo {
+            background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg xmlns='http://www.w3.org/2000/svg' version='1.1' baseProfile='full' width='180' height='80'%3E%3Crect width='100%25' height='100%25' fill='%232d3748'/%3E%3Cpath d='M60,20 L120,20 L150,40 L120,60 L60,60 L30,40 Z' fill='%234a88c8' fill-opacity='0.4'/%3E%3Cpath d='M70,30 L110,30 L130,40 L110,50 L70,50 L50,40 Z' fill='none' stroke='%2378c2ff' stroke-width='2'/%3E%3Ctext x='50%25' y='50%25' font-size='16' text-anchor='middle' alignment-baseline='middle' font-family='Arial, sans-serif' fill='%23ffffff' font-weight='bold'%3EPrivacy Defender%3Cbr /%3ECertification%3C/text%3E%3C/svg%3E");
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+        }
+        
+        [data-theme="dark"] .award-item:nth-child(4) .award-logo {
+            background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg xmlns='http://www.w3.org/2000/svg' version='1.1' baseProfile='full' width='180' height='80'%3E%3Crect width='100%25' height='100%25' fill='%232d3748'/%3E%3Ccircle cx='90' cy='40' r='25' stroke='%2378c2ff' stroke-width='2' fill='none'/%3E%3Cpath d='M65,40 L80,25 L100,25 L115,40 L100,55 L80,55 Z' fill='%234a88c8' fill-opacity='0.5'/%3E%3Ctext x='50%25' y='50%25' font-size='16' text-anchor='middle' alignment-baseline='middle' font-family='Arial, sans-serif' fill='%23ffffff' font-weight='bold'%3EForensic-Proof%3Cbr /%3ECertification%3C/text%3E%3C/svg%3E");
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+        }
+        
+        [data-theme="dark"] .award-item:nth-child(5) .award-logo {
+            background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg xmlns='http://www.w3.org/2000/svg' version='1.1' baseProfile='full' width='180' height='80'%3E%3Crect width='100%25' height='100%25' fill='%232d3748'/%3E%3Ccircle cx='90' cy='40' r='28' stroke='%2378c2ff' stroke-width='2' fill='none'/%3E%3Cpath d='M75,20 L105,20 L120,40 L105,60 L75,60 L60,40 Z' fill='%234a88c8' fill-opacity='0.3'/%3E%3Ctext x='50%25' y='50%25' font-size='15' text-anchor='middle' alignment-baseline='middle' font-family='Arial, sans-serif' fill='%23ffffff' font-weight='bold'%3EWorld Economic%3Cbr /%3EForum Tech Pioneer%3C/text%3E%3C/svg%3E");
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
         }
         
         [data-theme="dark"] .awards-section p[style] {
