@@ -1,0 +1,525 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Quantum Security articles from DeleteThisFile blog - Learn about the latest quantum encryption and security techniques">
+    <meta name="keywords" content="quantum security, quantum encryption, quantum cryptography, data security">
+    <title>Quantum Security Articles | DeleteThisFile Blog</title>
+    <link rel="stylesheet" href="../styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        .category-hero {
+            background: var(--primary-gradient);
+            color: white;
+            border-radius: var(--border-radius);
+            padding: 3rem 2rem;
+            text-align: center;
+            margin-bottom: 3rem;
+            box-shadow: var(--box-shadow-lg);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .category-hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            right: 0;
+            bottom: 0;
+            left: 0;
+            background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='100' height='100' viewBox='0 0 100 100'%3E%3Cpath fill='%23ffffff' fill-opacity='0.05' d='M11 18c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm48 25c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm-43-7c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm63 31c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM34 90c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm56-76c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM12 86c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm28-65c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm23-11c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm-6 60c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm29 22c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zM32 63c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm57-13c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm-9-21c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM60 91c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM35 41c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM12 60c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2z'%3E%3C/path%3E%3C/svg%3E");
+        }
+        
+        .category-hero h2 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            font-weight: var(--font-weight-bold);
+            position: relative;
+            z-index: 1;
+        }
+        
+        .category-hero p {
+            font-size: 1.2rem;
+            max-width: 700px;
+            margin: 0 auto;
+            opacity: 0.9;
+            position: relative;
+            z-index: 1;
+        }
+        
+        .category-icon {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            position: relative;
+            z-index: 1;
+        }
+        
+        .blog-layout {
+            display: grid;
+            grid-template-columns: minmax(0, 1fr) 300px;
+            gap: 2.5rem;
+        }
+        
+        .blog-main {
+            display: flex;
+            flex-direction: column;
+            gap: 2.5rem;
+        }
+        
+        .blog-post {
+            background-color: var(--card-bg);
+            border-radius: var(--border-radius);
+            overflow: hidden;
+            box-shadow: var(--box-shadow);
+            display: flex;
+        }
+        
+        .blog-post-img {
+            width: 200px;
+            flex-shrink: 0;
+            object-fit: cover;
+            background-color: var(--gray-200);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+        }
+        
+        .blog-post-content {
+            padding: 1.5rem;
+            flex: 1;
+        }
+        
+        .blog-post-meta {
+            color: var(--gray-600);
+            font-size: 0.85rem;
+            margin-bottom: 0.5rem;
+            display: flex;
+            align-items: center;
+        }
+        
+        .blog-post-author {
+            font-weight: var(--font-weight-medium);
+            color: var(--primary-color);
+        }
+        
+        .blog-post-date {
+            margin-left: 0.75rem;
+            padding-left: 0.75rem;
+            border-left: 1px solid var(--gray-300);
+        }
+        
+        .blog-post-title {
+            font-size: 1.3rem;
+            font-weight: var(--font-weight-bold);
+            color: var(--gray-900);
+            margin-bottom: 0.75rem;
+        }
+        
+        .blog-post-excerpt {
+            color: var(--gray-700);
+            line-height: 1.6;
+            margin-bottom: 1rem;
+            font-size: 0.95rem;
+        }
+        
+        .read-more {
+            display: inline-block;
+            padding: 0.6rem 1.2rem;
+            background: var(--primary-gradient);
+            color: white;
+            border-radius: var(--border-radius);
+            text-decoration: none;
+            font-weight: var(--font-weight-medium);
+            font-size: 0.9rem;
+            transition: var(--transition);
+        }
+        
+        .read-more:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--box-shadow);
+        }
+        
+        .blog-sidebar {
+            display: flex;
+            flex-direction: column;
+            gap: 2.5rem;
+        }
+        
+        .sidebar-section {
+            background-color: var(--card-bg);
+            border-radius: var(--border-radius);
+            padding: 1.5rem;
+            box-shadow: var(--box-shadow);
+        }
+        
+        .sidebar-title {
+            font-size: 1.1rem;
+            font-weight: var(--font-weight-semibold);
+            color: var(--gray-900);
+            margin-bottom: 1.25rem;
+            padding-bottom: 0.75rem;
+            border-bottom: 1px solid var(--gray-200);
+        }
+        
+        .categories-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+        
+        .category-item {
+            margin-bottom: 0.75rem;
+        }
+        
+        .category-link {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            text-decoration: none;
+            color: var(--gray-700);
+            padding: 0.5rem 0;
+            border-bottom: 1px solid var(--gray-200);
+            transition: var(--transition);
+        }
+        
+        .category-link:hover {
+            color: var(--primary-color);
+        }
+        
+        .category-link.active {
+            color: var(--primary-color);
+            font-weight: var(--font-weight-semibold);
+        }
+        
+        .category-count {
+            background-color: var(--gray-200);
+            color: var(--gray-600);
+            font-size: 0.8rem;
+            padding: 0.25rem 0.5rem;
+            border-radius: 50px;
+        }
+        
+        .tags-container {
+            display: flex;
+            flex-wrap: wrap;
+            margin-top: 1rem;
+        }
+        
+        .tag {
+            display: inline-block;
+            padding: 0.25rem 0.5rem;
+            background-color: rgba(0, 86, 179, 0.1);
+            color: var(--primary-color);
+            border-radius: 50px;
+            font-size: 0.75rem;
+            font-weight: var(--font-weight-medium);
+            margin-right: 0.5rem;
+            margin-bottom: 0.5rem;
+            text-decoration: none;
+            transition: var(--transition);
+        }
+        
+        .tag:hover {
+            background-color: var(--primary-color);
+            color: white;
+            transform: translateY(-2px);
+        }
+        
+        .back-to-blog {
+            display: inline-block;
+            margin-top: 1.5rem;
+            padding: 0.75rem 1.5rem;
+            background: var(--primary-gradient);
+            color: white;
+            border-radius: var(--border-radius);
+            text-decoration: none;
+            font-weight: var(--font-weight-medium);
+            transition: var(--transition);
+            box-shadow: var(--box-shadow);
+        }
+        
+        .back-to-blog:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--box-shadow-lg);
+        }
+        
+        @media (max-width: 992px) {
+            .blog-layout {
+                grid-template-columns: 1fr;
+            }
+            
+            .blog-post {
+                flex-direction: column;
+            }
+            
+            .blog-post-img {
+                width: 100%;
+                height: 180px;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .category-hero h2 {
+                font-size: 2rem;
+            }
+        }
+        
+        /* Dark mode overrides */
+        [data-theme="dark"] .blog-post {
+            background-color: #1a1a1a;
+            border: 1px solid rgba(255, 255, 255, 0.07);
+        }
+        
+        [data-theme="dark"] .sidebar-section {
+            background-color: transparent;
+            border: none;
+            box-shadow: none;
+        }
+        
+        [data-theme="dark"] .blog-post-title,
+        [data-theme="dark"] .sidebar-title {
+            color: white;
+        }
+        
+        [data-theme="dark"] .blog-post-excerpt,
+        [data-theme="dark"] .sidebar-section p {
+            color: rgba(255, 255, 255, 0.9);
+        }
+        
+        [data-theme="dark"] .blog-post-meta,
+        [data-theme="dark"] .blog-post-date {
+            color: rgba(255, 255, 255, 0.75);
+        }
+        
+        [data-theme="dark"] .blog-post-date {
+            border-left-color: rgba(255, 255, 255, 0.1);
+        }
+        
+        [data-theme="dark"] .category-link {
+            color: rgba(255, 255, 255, 0.85);
+            border-bottom-color: rgba(255, 255, 255, 0.05);
+        }
+        
+        [data-theme="dark"] .category-count {
+            background-color: rgba(255, 255, 255, 0.15);
+            color: white;
+        }
+        
+        [data-theme="dark"] .blog-post-img {
+            background-color: #262626;
+        }
+        
+        [data-theme="dark"] .tag {
+            background-color: rgba(0, 86, 179, 0.3);
+            color: white;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <div class="logo-container">
+                <a href="../index.html" class="logo-link">
+                    <div class="logo-3d-container">
+                        <div class="logo-3d">
+                            <div class="logo-face logo-front"></div>
+                            <div class="logo-face logo-back"></div>
+                            <div class="logo-face logo-right"></div>
+                            <div class="logo-face logo-left"></div>
+                            <div class="logo-face logo-top"></div>
+                            <div class="logo-face logo-bottom"></div>
+                        </div>
+                    </div>
+                    <div class="brand-text">
+                        <h1>DeleteThisFile<span class="tld">.com</span></h1>
+                        <p class="tagline">Enterprise-Grade Secure File Deletion Solution</p>
+                    </div>
+                </a>
+                <div class="header-badges">
+                    <div class="security-badge">
+                        <div class="badge-content">
+                            <span class="badge-icon">🛡️</span>
+                            <span>CERTIFIED SECURE</span>
+                        </div>
+                    </div>
+                    <div class="security-badge enterprise">
+                        <div class="badge-content">
+                            <span class="badge-icon">⚙️</span>
+                            <span>ENTERPRISE READY</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <nav class="main-nav">
+                <ul>
+                    <li><a href="../index.html">Delete</a></li>
+                    <li><a href="../how-it-works.html">How It Works</a></li>
+                    <li><a href="../enterprise-solutions.html">Enterprise Solutions</a></li>
+                    <li><a href="../comparison.html">Comparison</a></li>
+                    <li><a href="../testimonials.html">Testimonials</a></li>
+                    <li><a href="../team.html">Our Team</a></li>
+                    <li><a href="../blog.html" class="active">Blog</a></li>
+                </ul>
+            </nav>
+        </header>
+
+        <div class="category-hero">
+            <div class="category-icon">🔐</div>
+            <h2>Quantum Security</h2>
+            <p>Stay informed about cutting-edge developments in quantum cryptography, quantum-resistant deletion techniques, and post-quantum security protocols.</p>
+        </div>
+
+        <div class="blog-layout">
+            <div class="blog-main">
+                <article class="blog-post">
+                    <div class="blog-post-img">
+                        🔐
+                    </div>
+                    <div class="blog-post-content">
+                        <div class="blog-post-meta">
+                            <span class="blog-post-author">Dr. Xavier Nullbyte</span>
+                            <span class="blog-post-date">April 10, 2025</span>
+                        </div>
+                        <h3 class="blog-post-title">New Study Reveals 87% of "Deleted" Files Are Still Recoverable Using Quantum Computing</h3>
+                        <p class="blog-post-excerpt">Researchers at the Quantum Computing Coalition have made a startling discovery: using advanced quantum algorithms, they were able to recover 87% of files that users believed were permanently deleted using conventional deletion methods. The study, which analyzed over 10,000 "deleted" files from secondhand storage devices, reveals a significant privacy vulnerability affecting billions of users worldwide.</p>
+                        <a href="../blog-posts/quantum-files-recovery.html" class="read-more">Read Full Article</a>
+                    </div>
+                </article>
+
+                <article class="blog-post">
+                    <div class="blog-post-img">
+                        🔑
+                    </div>
+                    <div class="blog-post-content">
+                        <div class="blog-post-meta">
+                            <span class="blog-post-author">Dr. Eleanor Quantum</span>
+                            <span class="blog-post-date">March 15, 2025</span>
+                        </div>
+                        <h3 class="blog-post-title">Quantum Key Distribution: The Future of Secure Deletion Verification</h3>
+                        <p class="blog-post-excerpt">Quantum Key Distribution (QKD) is revolutionizing how we verify data has been permanently removed from storage systems. By leveraging quantum entanglement, DeleteThisFile's new QKD verification protocol provides cryptographic proof that deletion operations have been completed successfully, even across distributed storage systems.</p>
+                        <a href="../blog-posts/quantum-key-distribution.html" class="read-more">Continue Reading</a>
+                    </div>
+                </article>
+
+                <article class="blog-post">
+                    <div class="blog-post-img">
+                        ⚛️
+                    </div>
+                    <div class="blog-post-content">
+                        <div class="blog-post-meta">
+                            <span class="blog-post-author">Michael Heisenberg</span>
+                            <span class="blog-post-date">February 28, 2025</span>
+                        </div>
+                        <h3 class="blog-post-title">Breaking the Uncertainty Principle: How Quantum Erasure Actually Works</h3>
+                        <p class="blog-post-excerpt">The quantum erasure techniques developed by DeleteThisFile appear to violate Heisenberg's uncertainty principle—but they don't. Instead, they leverage quantum decoherence to ensure that quantum states of erased data cannot be reconstructed, even theoretically. This deep dive explains the physics behind our proprietary deletion technique in accessible terms.</p>
+                        <a href="../blog-posts/quantum-erasure-physics.html" class="read-more">Continue Reading</a>
+                    </div>
+                </article>
+
+                <article class="blog-post">
+                    <div class="blog-post-img">
+                        🔍
+                    </div>
+                    <div class="blog-post-content">
+                        <div class="blog-post-meta">
+                            <span class="blog-post-author">Dr. Xavier Nullbyte</span>
+                            <span class="blog-post-date">January 22, 2025</span>
+                        </div>
+                        <h3 class="blog-post-title">Shor's Algorithm and Your Data: Why Conventional Encryption Will Soon Fail</h3>
+                        <p class="blog-post-excerpt">As quantum computers approach the threshold needed to run Shor's algorithm at scale, conventionally encrypted data will become vulnerable. This includes supposedly "deleted" data that was merely encrypted rather than properly purged. Our analysis shows that over 60% of enterprise deletion solutions rely on encryption methods that will fall to quantum attacks.</p>
+                        <a href="../blog-posts/shors-algorithm.html" class="read-more">Continue Reading</a>
+                    </div>
+                </article>
+
+                <article class="blog-post">
+                    <div class="blog-post-img">
+                        🧮
+                    </div>
+                    <div class="blog-post-content">
+                        <div class="blog-post-meta">
+                            <span class="blog-post-author">Julie Quantumist</span>
+                            <span class="blog-post-date">December 10, 2024</span>
+                        </div>
+                        <h3 class="blog-post-title">Quantum Random Number Generators: The Key to Tamper-Proof Deletion</h3>
+                        <p class="blog-post-excerpt">The introduction of quantum random number generators (QRNGs) into data deletion processes has revolutionized secure erasure. Unlike pseudo-random numbers used in conventional overwrite methods, QRNGs provide true randomness derived from quantum processes, making it mathematically impossible to predict the overwrite patterns and recover erased data.</p>
+                        <a href="../blog-posts/quantum-random-numbers.html" class="read-more">Continue Reading</a>
+                    </div>
+                </article>
+
+                <article class="blog-post">
+                    <div class="blog-post-img">
+                        🔒
+                    </div>
+                    <div class="blog-post-content">
+                        <div class="blog-post-meta">
+                            <span class="blog-post-author">Alexander Qubit</span>
+                            <span class="blog-post-date">November 15, 2024</span>
+                        </div>
+                        <h3 class="blog-post-title">Post-Quantum Cryptography and the Future of Data Deletion</h3>
+                        <p class="blog-post-excerpt">As NIST finalizes the standardization of post-quantum cryptographic algorithms, data deletion technologies must evolve to maintain their security guarantees. Our research team examines how lattice-based cryptography, hash-based signatures, and multivariate polynomials are being incorporated into next-generation secure deletion frameworks.</p>
+                        <a href="../blog-posts/post-quantum-cryptography.html" class="read-more">Continue Reading</a>
+                    </div>
+                </article>
+            </div>
+            
+            <div class="blog-sidebar">
+                <div class="sidebar-section">
+                    <h3 class="sidebar-title">All Categories</h3>
+                    <ul class="categories-list">
+                        <li class="category-item">
+                            <a href="quantum-security.html" class="category-link active">
+                                <span>Quantum Security</span>
+                                <span class="category-count">6</span>
+                            </a>
+                        </li>
+                        <li class="category-item">
+                            <a href="regulatory-compliance.html" class="category-link">
+                                <span>Regulatory Compliance</span>
+                                <span class="category-count">5</span>
+                            </a>
+                        </li>
+                        <li class="category-item">
+                            <a href="data-privacy.html" class="category-link">
+                                <span>Data Privacy</span>
+                                <span class="category-count">8</span>
+                            </a>
+                        </li>
+                        <li class="category-item">
+                            <a href="enterprise-solutions.html" class="category-link">
+                                <span>Enterprise Solutions</span>
+                                <span class="category-count">4</span>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+                
+                <div class="sidebar-section">
+                    <h3 class="sidebar-title">Popular Tags</h3>
+                    <div class="tags-container">
+                        <a href="../blog-tags/quantum-deletion.html" class="tag">QuantumDeletion</a>
+                        <a href="../blog-tags/quantum-computing.html" class="tag">QuantumComputing</a>
+                        <a href="../blog-tags/post-quantum.html" class="tag">PostQuantum</a>
+                        <a href="../blog-tags/cryptography.html" class="tag">Cryptography</a>
+                        <a href="../blog-tags/qkd.html" class="tag">QKD</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div style="text-align: center; margin-top: 3rem; margin-bottom: 2rem;">
+            <a href="../blog.html" class="back-to-blog">Return to Blog</a>
+        </div>
+
+        <footer>
+            <!-- Footer content will be injected by footer.js -->
+        </footer>
+    </div>
+
+    <script src="../theme.js"></script>
+    <script src="../footer.js"></script>
+</body>
+</html> 
