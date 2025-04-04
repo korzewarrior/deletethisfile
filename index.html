@@ -4,52 +4,82 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="Enterprise-grade secure file deletion service for permanent data removal with military-grade encryption">
-    <meta name="keywords" content="secure deletion, file shredder, data removal, enterprise security">
+    <meta name="keywords" content="secure deletion, file shredder, data removal, enterprise security, data sanitization, DOD 5220.22-M">
     <title>DeleteThisFile | Secure Data Removal Solution</title>
     <link rel="stylesheet" href="styles.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
 </head>
 <body>
     <div class="container">
         <header>
-            <div class="logo">
-                <span class="logo-icon">🔒</span>
-                <h1>DeleteThisFile<span class="tld">.com</span></h1>
+            <div class="logo-container">
+                <div class="logo-3d-container">
+                    <div class="logo-3d">
+                        <div class="logo-face logo-front"></div>
+                        <div class="logo-face logo-back"></div>
+                        <div class="logo-face logo-right"></div>
+                        <div class="logo-face logo-left"></div>
+                        <div class="logo-face logo-top"></div>
+                        <div class="logo-face logo-bottom"></div>
+                    </div>
+                </div>
+                <div class="brand-text">
+                    <h1>DeleteThisFile<span class="tld">.com</span></h1>
+                    <p class="tagline">Enterprise-Grade Secure File Deletion Solution</p>
+                </div>
             </div>
-            <p class="tagline">Enterprise-Grade Secure File Deletion Solution</p>
+            <div class="header-badges">
+                <div class="security-badge">
+                    <div class="badge-content">
+                        <span class="badge-icon">🛡️</span>
+                        <span class="badge-text">CERTIFIED SECURE</span>
+                    </div>
+                </div>
+                <div class="security-badge enterprise">
+                    <div class="badge-content">
+                        <span class="badge-icon">⚙️</span>
+                        <span class="badge-text">ENTERPRISE READY</span>
+                    </div>
+                </div>
+            </div>
         </header>
 
-        <section class="security-badge">
-            <div class="badge-content">
-                <span class="badge-icon">🛡️</span>
-                <span class="badge-text">CERTIFIED SECURE</span>
+        <div class="main-section">
+            <div id="drop-zone">
+                <div class="drop-zone-content">
+                    <div class="icon-container">
+                        <div class="icon">🗑️</div>
+                        <div class="pulse-ring"></div>
+                    </div>
+                    <p>Drag & Drop Files for Secure Deletion</p>
+                    <p class="small">Files are processed with military-grade encryption protocols</p>
+                </div>
             </div>
-        </section>
 
-        <div id="drop-zone">
-            <div class="drop-zone-content">
-                <div class="icon">🗑️</div>
-                <p>Drag & Drop Files for Secure Deletion</p>
-                <p class="small">Files are processed with military-grade encryption protocols</p>
+            <div id="deletion-progress" class="hidden">
+                <h2>Processing Secure Deletion</h2>
+                <div class="progress-container">
+                    <div class="progress-bar">
+                        <div class="progress-fill"></div>
+                    </div>
+                    <div class="progress-status">
+                        <div class="status-icon"></div>
+                        <p id="deletion-message">Initializing secure deletion protocol...</p>
+                    </div>
+                </div>
             </div>
-        </div>
-
-        <div id="deletion-progress" class="hidden">
-            <h2>Processing Secure Deletion</h2>
-            <div class="progress-bar">
-                <div class="progress-fill"></div>
-            </div>
-            <p id="deletion-message">Initializing secure deletion protocol...</p>
         </div>
 
         <div id="stats">
             <div class="stat-box">
+                <div class="stat-icon">📊</div>
                 <div class="stat-label">Session Deletions</div>
                 <div class="stat-value"><span id="deleted-count">0</span></div>
             </div>
             <div class="stat-box">
+                <div class="stat-icon">🌐</div>
                 <div class="stat-label">Global Deletions</div>
                 <div class="stat-value"><span id="total-count">0</span></div>
             </div>
@@ -60,16 +90,30 @@
                 <div class="feature-icon">🔐</div>
                 <h3>End-to-End Encryption</h3>
                 <p>Industry-leading security protocols</p>
+                <div class="feature-divider"></div>
+                <div class="feature-detail">AES-256 + RSA-4096</div>
             </div>
             <div class="feature">
                 <div class="feature-icon">⚡</div>
                 <h3>High-Performance</h3>
                 <p>Optimized for enterprise workloads</p>
+                <div class="feature-divider"></div>
+                <div class="feature-detail">500+ GB/hour</div>
             </div>
             <div class="feature">
                 <div class="feature-icon">🔍</div>
                 <h3>Forensic-Proof</h3>
                 <p>Beyond recovery capabilities</p>
+                <div class="feature-divider"></div>
+                <div class="feature-detail">35-pass verification</div>
+            </div>
+        </section>
+
+        <section class="enterprise-callout">
+            <div class="callout-content">
+                <h3>Enterprise Solutions Available</h3>
+                <p>Custom deployment options for government and corporate environments</p>
+                <div class="enterprise-badge">Enterprise</div>
             </div>
         </section>
 
@@ -78,9 +122,11 @@
                 <span class="compliance-badge">ISO 27001</span>
                 <span class="compliance-badge">GDPR</span>
                 <span class="compliance-badge">HIPAA</span>
+                <span class="compliance-badge">SOC 2</span>
+                <span class="compliance-badge">NIST 800-88</span>
             </div>
             <p>Files are processed using proprietary zero-knowledge architecture. No data is transmitted externally.</p>
-            <p>© 2025 DeleteThisFile.com | <a href="#">Privacy Policy</a> | <a href="#">Terms of Service</a></p>
+            <p>© 2025 DeleteThisFile.com | <a href="#">Privacy Policy</a> | <a href="#">Terms of Service</a> | <a href="#">Enterprise Solutions</a></p>
         </footer>
     </div>
     <script src="script.js"></script>
