@@ -1,0 +1,546 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Your official DeleteThisFile deletion certificate - proof of secure file elimination">
+    <meta name="keywords" content="deletion certificate, file elimination proof, secure deletion verification">
+    <title>Deletion Certificate | DeleteThisFile</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        body {
+            background-color: var(--gray-100);
+        }
+        
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+        
+        .certificate-container {
+            background-color: white;
+            border-radius: var(--border-radius);
+            box-shadow: var(--box-shadow-lg);
+            overflow: hidden;
+            margin: 1rem 0 3rem;
+            position: relative;
+        }
+        
+        .certificate-header {
+            background: var(--primary-gradient);
+            color: white;
+            text-align: center;
+            padding: 2rem;
+            position: relative;
+        }
+        
+        .certificate-header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            right: 0;
+            bottom: 0;
+            left: 0;
+            background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='100' height='100' viewBox='0 0 100 100'%3E%3Cpath fill='%23ffffff' fill-opacity='0.05' d='M11 18c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm48 25c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm-43-7c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm63 31c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM34 90c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm56-76c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM12 86c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm28-65c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm23-11c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm-6 60c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm29 22c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zM32 63c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm57-13c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm-9-21c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM60 91c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM35 41c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM12 60c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2z'%3E%3C/path%3E%3C/svg%3E");
+        }
+        
+        .logo-small {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.75rem;
+            margin-bottom: 1rem;
+        }
+        
+        .logo-small-image {
+            width: 40px;
+            height: 40px;
+            background-color: white;
+            border-radius: 8px;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .logo-small-image::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 24px;
+            height: 24px;
+            background-color: var(--primary-color);
+            clip-path: polygon(50% 0%, 100% 50%, 50% 100%, 0% 50%);
+        }
+        
+        .logo-small-text {
+            font-size: 1.25rem;
+            font-weight: var(--font-weight-bold);
+        }
+        
+        .certificate-title {
+            font-size: 2.5rem;
+            font-weight: var(--font-weight-bold);
+            margin-bottom: 0.5rem;
+            position: relative;
+            z-index: 1;
+        }
+        
+        .certificate-subtitle {
+            font-size: 1.2rem;
+            opacity: 0.9;
+            position: relative;
+            z-index: 1;
+        }
+        
+        .certificate-body {
+            padding: 3rem;
+            position: relative;
+        }
+        
+        .certificate-body::before {
+            content: '';
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            bottom: 1rem;
+            left: 1rem;
+            border: 2px dashed var(--gray-200);
+            border-radius: var(--border-radius);
+            z-index: 0;
+            pointer-events: none;
+        }
+        
+        .certificate-content {
+            position: relative;
+            z-index: 1;
+        }
+        
+        .certificate-statement {
+            text-align: center;
+            font-size: 1.4rem;
+            color: var(--gray-800);
+            margin-bottom: 3rem;
+            line-height: 1.6;
+        }
+        
+        .certificate-emphasize {
+            color: var(--primary-color);
+            font-weight: var(--font-weight-bold);
+        }
+        
+        .certificate-details {
+            background-color: var(--gray-50);
+            border-radius: var(--border-radius);
+            padding: 2rem;
+            margin-bottom: 2rem;
+        }
+        
+        .certificate-details h3 {
+            font-size: 1.25rem;
+            font-weight: var(--font-weight-semibold);
+            color: var(--gray-800);
+            margin-bottom: 1.5rem;
+            padding-bottom: 0.75rem;
+            border-bottom: 1px solid var(--gray-200);
+        }
+        
+        .detail-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+        
+        .detail-group {
+            margin-bottom: 1.25rem;
+        }
+        
+        .detail-label {
+            font-size: 0.9rem;
+            color: var(--gray-600);
+            margin-bottom: 0.5rem;
+        }
+        
+        .detail-value {
+            font-size: 1.1rem;
+            font-weight: var(--font-weight-medium);
+            color: var(--gray-900);
+        }
+        
+        .verification-badge {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin: 2.5rem 0;
+        }
+        
+        .badge-container {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            background: var(--primary-gradient);
+            margin-bottom: 1.5rem;
+            box-shadow: var(--box-shadow);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .badge-inner {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 110px;
+            height: 110px;
+            border-radius: 50%;
+            background-color: white;
+            color: var(--primary-color);
+            font-size: 2.5rem;
+            font-weight: var(--font-weight-bold);
+        }
+        
+        .verification-text {
+            font-size: 1.25rem;
+            color: var(--gray-800);
+            font-weight: var(--font-weight-semibold);
+            margin-bottom: 0.5rem;
+            text-align: center;
+        }
+        
+        .verification-subtext {
+            font-size: 0.95rem;
+            color: var(--gray-600);
+            max-width: 500px;
+            text-align: center;
+            line-height: 1.6;
+        }
+        
+        .certificate-footer {
+            border-top: 1px solid var(--gray-200);
+            padding-top: 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-end;
+        }
+        
+        .certificate-seal {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        
+        .seal-image {
+            width: 100px;
+            height: 100px;
+            margin-bottom: 0.75rem;
+            position: relative;
+        }
+        
+        .seal-image::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            right: 0;
+            bottom: 0;
+            left: 0;
+            background: var(--primary-gradient);
+            border-radius: 50%;
+        }
+        
+        .seal-image::after {
+            content: '';
+            position: absolute;
+            top: 5px;
+            right: 5px;
+            bottom: 5px;
+            left: 5px;
+            background-color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .seal-text {
+            font-size: 0.85rem;
+            color: var(--gray-600);
+            text-align: center;
+            max-width: 120px;
+            line-height: 1.4;
+        }
+        
+        .certificate-signature {
+            text-align: center;
+            max-width: 250px;
+        }
+        
+        .signature-image {
+            font-family: 'Brush Script MT', cursive;
+            font-size: 2.5rem;
+            color: var(--gray-900);
+            margin-bottom: 0.5rem;
+        }
+        
+        .signature-name {
+            font-size: 1rem;
+            font-weight: var(--font-weight-semibold);
+            color: var(--gray-800);
+            margin-bottom: 0.25rem;
+        }
+        
+        .signature-title {
+            font-size: 0.85rem;
+            color: var(--gray-600);
+        }
+        
+        .qr-code {
+            width: 100px;
+            height: 100px;
+            background-color: var(--gray-200);
+            padding: 0.5rem;
+            border-radius: var(--border-radius);
+            position: relative;
+        }
+        
+        .qr-code::before {
+            content: '';
+            position: absolute;
+            top: 0.5rem;
+            right: 0.5rem;
+            bottom: 0.5rem;
+            left: 0.5rem;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='150' height='150' viewBox='0 0 150 150'%3E%3Crect width='150' height='150' fill='white'/%3E%3Cpath d='M20,20 h30 v30 h-30 v-30 M23,23 h24 v24 h-24 v-24 M35,35 h6 v6 h-6 v-6 M50,20 h10 v10 h-10 v-10 M70,20 h30 v30 h-30 v-30 M73,23 h24 v24 h-24 v-24 M85,35 h6 v6 h-6 v-6 M20,50 h10 v10 h-10 v-10 M40,50 h10 v10 h-10 v-10 M60,50 h10 v10 h-10 v-10 M80,50 h10 v10 h-10 v-10 M100,50 h10 v10 h-10 v-10 M20,70 h30 v30 h-30 v-30 M23,73 h24 v24 h-24 v-24 M35,85 h6 v6 h-6 v-6 M60,70 h10 v10 h-10 v-10 M80,70 h10 v10 h-10 v-10 M100,70 h10 v10 h-10 v-10 M50,100 h10 v10 h-10 v-10 M70,100 h10 v10 h-10 v-10 M90,100 h10 v10 h-10 v-10 M110,100 h10 v10 h-10 v-10 M100,20 h5 v5 h-5 v-5 M115,20 h5 v5 h-5 v-5 M100,35 h5 v5 h-5 v-5 M115,35 h5 v5 h-5 v-5 M25,105 h10 v15 h-10 v-15 M20,120 h30 v10 h-30 v-10' fill='black'/%3E%3C/svg%3E");
+            background-size: cover;
+        }
+        
+        .certificate-note {
+            font-size: 0.85rem;
+            color: var(--gray-600);
+            margin-top: 2rem;
+            text-align: center;
+            font-style: italic;
+        }
+        
+        .watermark {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%) rotate(-45deg);
+            font-size: 8rem;
+            color: rgba(0, 86, 179, 0.03);
+            font-weight: var(--font-weight-bold);
+            white-space: nowrap;
+            z-index: 0;
+            pointer-events: none;
+        }
+        
+        .action-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+        
+        .action-button {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.75rem 1.5rem;
+            background-color: white;
+            color: var(--gray-800);
+            border-radius: var(--border-radius);
+            text-decoration: none;
+            font-weight: var(--font-weight-medium);
+            box-shadow: var(--box-shadow);
+            transition: var(--transition);
+        }
+        
+        .action-button:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--box-shadow-lg);
+        }
+        
+        .action-button.primary {
+            background: var(--primary-gradient);
+            color: white;
+        }
+        
+        .action-icon {
+            font-size: 1.25rem;
+        }
+        
+        @media (max-width: 768px) {
+            .certificate-body {
+                padding: 1.5rem;
+            }
+            
+            .certificate-statement {
+                font-size: 1.2rem;
+            }
+            
+            .detail-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .certificate-footer {
+                flex-direction: column;
+                align-items: center;
+                gap: 2rem;
+            }
+            
+            .action-buttons {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <div class="logo-container">
+                <div class="logo-3d-container">
+                    <div class="logo-3d">
+                        <div class="logo-face logo-front"></div>
+                        <div class="logo-face logo-back"></div>
+                        <div class="logo-face logo-right"></div>
+                        <div class="logo-face logo-left"></div>
+                        <div class="logo-face logo-top"></div>
+                        <div class="logo-face logo-bottom"></div>
+                    </div>
+                </div>
+                <div class="brand-text">
+                    <h1>DeleteThisFile<span class="tld">.com</span></h1>
+                    <p class="tagline">Enterprise-Grade Secure File Deletion Solution</p>
+                </div>
+            </div>
+        </header>
+        
+        <div class="action-buttons">
+            <a href="#" class="action-button primary">
+                <span class="action-icon">📥</span>
+                <span>Download Certificate</span>
+            </a>
+            <a href="#" class="action-button">
+                <span class="action-icon">🖨️</span>
+                <span>Print Certificate</span>
+            </a>
+            <a href="#" class="action-button">
+                <span class="action-icon">📧</span>
+                <span>Email Certificate</span>
+            </a>
+        </div>
+
+        <div class="certificate-container">
+            <div class="certificate-header">
+                <div class="logo-small">
+                    <div class="logo-small-image"></div>
+                    <div class="logo-small-text">DeleteThisFile.com</div>
+                </div>
+                <h2 class="certificate-title">Certificate of Secure Deletion</h2>
+                <p class="certificate-subtitle">Official Verification of Permanent Digital Erasure</p>
+            </div>
+            
+            <div class="certificate-body">
+                <div class="watermark">VERIFIED</div>
+                
+                <div class="certificate-content">
+                    <p class="certificate-statement">
+                        This certifies that <span class="certificate-emphasize">DeleteThisFile.com</span> has successfully performed a secure, permanent, and irreversible deletion operation using VOID™ (Virtual Object Incineration Dynamics) technology on <span class="certificate-emphasize">April 13, 2025 at 15:42:33 UTC</span>.
+                    </p>
+                    
+                    <div class="certificate-details">
+                        <h3>Deletion Details</h3>
+                        <div class="detail-grid">
+                            <div>
+                                <div class="detail-group">
+                                    <div class="detail-label">Operation ID</div>
+                                    <div class="detail-value">DTF-XJ47Y-9PQ38-2025</div>
+                                </div>
+                                
+                                <div class="detail-group">
+                                    <div class="detail-label">Verification Hash</div>
+                                    <div class="detail-value">FD9C7A5E0B3D...</div>
+                                </div>
+                                
+                                <div class="detail-group">
+                                    <div class="detail-label">Deletion Protocol</div>
+                                    <div class="detail-value">35-Pass Quantum Erasure</div>
+                                </div>
+                            </div>
+                            
+                            <div>
+                                <div class="detail-group">
+                                    <div class="detail-label">Verification Level</div>
+                                    <div class="detail-value">7-Sigma (99.99997%)</div>
+                                </div>
+                                
+                                <div class="detail-group">
+                                    <div class="detail-label">Blockchain Verification</div>
+                                    <div class="detail-value">Block #7592443</div>
+                                </div>
+                                
+                                <div class="detail-group">
+                                    <div class="detail-label">Recovery Resistance Rating</div>
+                                    <div class="detail-value">Level 5 (Maximum)</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="verification-badge">
+                        <div class="badge-container">
+                            <div class="badge-inner">✓</div>
+                        </div>
+                        <div class="verification-text">Quantum-Verified Deletion</div>
+                        <div class="verification-subtext">
+                            This deletion has been cryptographically verified and secured on our proprietary blockchain. The verification can be independently validated using the Operation ID and Verification Hash above.
+                        </div>
+                    </div>
+                    
+                    <div class="certificate-footer">
+                        <div class="certificate-seal">
+                            <div class="seal-image"></div>
+                            <div class="seal-text">Official Deletion Seal of DeleteThisFile.com</div>
+                        </div>
+                        
+                        <div class="certificate-signature">
+                            <div class="signature-image">David Vanish</div>
+                            <div class="signature-name">Dr. David Vanish, Ph.D.</div>
+                            <div class="signature-title">Chief Erasure Officer</div>
+                        </div>
+                        
+                        <div class="qr-code"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <p class="certificate-note">This certificate serves as proof that the file has been permanently deleted using our proprietary VOID™ technology. The deletion process has been cryptographically verified and recorded on our secure blockchain, providing immutable proof of erasure. This certificate is tamper-proof and can be independently verified at any time using the Operation ID and Verification Hash.</p>
+        
+        <div style="text-align: center; margin-top: 2rem;">
+            <a href="index.html" class="action-button">
+                <span class="action-icon">🏠</span>
+                <span>Return to Home</span>
+            </a>
+        </div>
+
+        <footer>
+            <div class="compliance">
+                <span class="compliance-badge">ISO 27001</span>
+                <span class="compliance-badge">GDPR</span>
+                <span class="compliance-badge">HIPAA</span>
+                <span class="compliance-badge">SOC 2</span>
+                <span class="compliance-badge">NIST 800-88</span>
+            </div>
+            <p>Files are processed using proprietary zero-knowledge architecture. No data is transmitted externally.</p>
+            <p>© 2025 DeleteThisFile.com | <a href="privacy-policy.html">Privacy Policy</a> | <a href="terms-of-service.html">Terms of Service</a> | <a href="enterprise-solutions.html">Enterprise Solutions</a> | <a href="testimonials.html">Testimonials</a> | <a href="how-it-works.html">How It Works</a> | <a href="team.html">Our Team</a> | <a href="comparison.html">Comparison</a> | <a href="blog.html">Blog</a></p>
+        </footer>
+    </div>
+</body>
+</html> 

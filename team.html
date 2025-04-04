@@ -1,0 +1,474 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Meet the brilliant minds behind DeleteThisFile.com - leaders in secure data deletion technology">
+    <meta name="keywords" content="team, leadership, secure deletion, data privacy experts">
+    <title>Meet Our Team | DeleteThisFile</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        .team-hero {
+            background: var(--primary-gradient);
+            color: white;
+            border-radius: var(--border-radius);
+            padding: 3rem 2rem;
+            text-align: center;
+            margin-bottom: 3rem;
+            box-shadow: var(--box-shadow-lg);
+        }
+        
+        .team-hero h2 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            font-weight: var(--font-weight-bold);
+        }
+        
+        .team-hero p {
+            font-size: 1.2rem;
+            max-width: 700px;
+            margin: 0 auto;
+            opacity: 0.9;
+        }
+        
+        .team-section {
+            background-color: white;
+            border-radius: var(--border-radius);
+            padding: 2.5rem;
+            margin-bottom: 2.5rem;
+            box-shadow: var(--box-shadow);
+        }
+        
+        .team-section h3 {
+            font-size: 1.75rem;
+            color: var(--primary-color);
+            margin-bottom: 2rem;
+            font-weight: var(--font-weight-semibold);
+            text-align: center;
+            position: relative;
+            padding-bottom: 0.75rem;
+        }
+        
+        .team-section h3::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 3px;
+            background: var(--primary-gradient);
+            border-radius: 50px;
+        }
+        
+        .team-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 2.5rem;
+            margin-top: 2rem;
+        }
+        
+        .team-card {
+            background-color: var(--gray-50);
+            border-radius: var(--border-radius);
+            box-shadow: var(--box-shadow);
+            overflow: hidden;
+            transition: var(--transition);
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .team-card:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--box-shadow-lg);
+        }
+        
+        .team-card-img {
+            width: 100%;
+            aspect-ratio: 1 / 1;
+            object-fit: cover;
+            filter: saturate(0.9);
+        }
+        
+        .team-card-content {
+            padding: 1.5rem;
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .team-name {
+            font-size: 1.3rem;
+            font-weight: var(--font-weight-semibold);
+            color: var(--gray-900);
+            margin-bottom: 0.35rem;
+        }
+        
+        .team-title {
+            color: var(--primary-color);
+            font-weight: var(--font-weight-medium);
+            margin-bottom: 1rem;
+            font-size: 0.95rem;
+        }
+        
+        .team-bio {
+            color: var(--gray-700);
+            line-height: 1.6;
+            margin-bottom: 1.5rem;
+            flex-grow: 1;
+        }
+        
+        .team-fun-fact {
+            background-color: rgba(0, 86, 179, 0.05);
+            padding: 0.75rem;
+            border-radius: var(--border-radius);
+            margin-top: auto;
+            font-style: italic;
+            color: var(--gray-700);
+            font-size: 0.9rem;
+            border-left: 3px solid var(--primary-color);
+        }
+        
+        .team-fun-fact strong {
+            color: var(--primary-color);
+            font-weight: var(--font-weight-semibold);
+            display: block;
+            margin-bottom: 0.25rem;
+        }
+        
+        .team-badges {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin-bottom: 1rem;
+        }
+        
+        .team-badge {
+            display: inline-block;
+            padding: 0.25rem 0.75rem;
+            background-color: rgba(0, 86, 179, 0.1);
+            color: var(--primary-color);
+            border-radius: 50px;
+            font-size: 0.75rem;
+            font-weight: var(--font-weight-medium);
+        }
+        
+        .values-section {
+            text-align: center;
+            margin: 4rem 0;
+        }
+        
+        .values-title {
+            font-size: 2rem;
+            color: var(--gray-900);
+            margin-bottom: 1.5rem;
+            font-weight: var(--font-weight-semibold);
+        }
+        
+        .values-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+        
+        .value-card {
+            background-color: white;
+            border-radius: var(--border-radius);
+            padding: 2rem;
+            box-shadow: var(--box-shadow);
+            transition: var(--transition);
+            border-top: 4px solid var(--primary-color);
+        }
+        
+        .value-card:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--box-shadow-lg);
+        }
+        
+        .value-icon {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            color: var(--primary-color);
+        }
+        
+        .value-title {
+            font-size: 1.3rem;
+            font-weight: var(--font-weight-semibold);
+            margin-bottom: 1rem;
+            color: var(--gray-900);
+        }
+        
+        .value-desc {
+            color: var(--gray-700);
+            line-height: 1.6;
+        }
+        
+        .awards-section {
+            background-color: white;
+            border-radius: var(--border-radius);
+            padding: 2.5rem;
+            margin-bottom: 2.5rem;
+            box-shadow: var(--box-shadow);
+            text-align: center;
+        }
+        
+        .awards-logos {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            align-items: center;
+            gap: 2.5rem;
+            margin: 2rem 0;
+        }
+        
+        .award-logo {
+            max-width: 180px;
+            height: 80px;
+            object-fit: contain;
+            filter: grayscale(1) opacity(0.7);
+            transition: var(--transition);
+        }
+        
+        .award-logo:hover {
+            filter: grayscale(0) opacity(1);
+        }
+        
+        .back-to-home {
+            display: inline-block;
+            margin-top: 1.5rem;
+            padding: 0.75rem 1.5rem;
+            background: var(--primary-gradient);
+            color: white;
+            border-radius: var(--border-radius);
+            text-decoration: none;
+            font-weight: var(--font-weight-medium);
+            transition: var(--transition);
+            box-shadow: var(--box-shadow);
+        }
+        
+        .back-to-home:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--box-shadow-lg);
+        }
+        
+        @media (max-width: 768px) {
+            .team-grid, .values-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .team-hero h2 {
+                font-size: 2rem;
+            }
+            
+            .awards-logos {
+                gap: 1.5rem;
+            }
+            
+            .award-logo {
+                max-width: 120px;
+                height: 60px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <div class="logo-container">
+                <div class="logo-3d-container">
+                    <div class="logo-3d">
+                        <div class="logo-face logo-front"></div>
+                        <div class="logo-face logo-back"></div>
+                        <div class="logo-face logo-right"></div>
+                        <div class="logo-face logo-left"></div>
+                        <div class="logo-face logo-top"></div>
+                        <div class="logo-face logo-bottom"></div>
+                    </div>
+                </div>
+                <div class="brand-text">
+                    <h1>DeleteThisFile<span class="tld">.com</span></h1>
+                    <p class="tagline">Enterprise-Grade Secure File Deletion Solution</p>
+                </div>
+            </div>
+        </header>
+
+        <div class="team-hero">
+            <h2>Meet Our World-Class Team</h2>
+            <p>The brilliant minds pioneering the digital deletion revolution and setting new standards for data security, privacy, and plausible deniability.</p>
+        </div>
+
+        <div class="team-section">
+            <h3>Leadership</h3>
+            
+            <div class="team-grid">
+                <div class="team-card">
+                    <img src="data:image/svg+xml;charset=UTF-8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20version%3D%221.1%22%20baseProfile%3D%22full%22%20width%3D%22300%22%20height%3D%22300%22%3E%3Crect%20width%3D%22100%25%22%20height%3D%22100%25%22%20fill%3D%22%230056b3%22%2F%3E%3Ctext%20x%3D%22150%22%20y%3D%22150%22%20font-size%3D%2260%22%20text-anchor%3D%22middle%22%20alignment-baseline%3D%22middle%22%20font-family%3D%22monospace%2C%20sans-serif%22%20fill%3D%22%23ffffff%22%3ED.V.%3C%2Ftext%3E%3C%2Fsvg%3E" alt="David Vanish" class="team-card-img">
+                    <div class="team-card-content">
+                        <h4 class="team-name">David Vanish, Ph.D.</h4>
+                        <div class="team-title">Founder & Chief Erasure Officer (CEO)</div>
+                        <div class="team-badges">
+                            <span class="team-badge">Secure Deletion Pioneer</span>
+                            <span class="team-badge">Former NSNull Agency</span>
+                        </div>
+                        <p class="team-bio">After a mysterious 15-year career at an unnamed government agency that officially doesn't exist, David founded DeleteThisFile with the vision of bringing military-grade deletion technology to the mainstream. His research on quantum erasing algorithms has been cited in 37 classified papers that the public will never read.</p>
+                        <div class="team-fun-fact">
+                            <strong>Fun Fact:</strong> David has no digital footprint. Google him and get zero results. He considers this his greatest personal achievement.
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="team-card">
+                    <img src="data:image/svg+xml;charset=UTF-8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20version%3D%221.1%22%20baseProfile%3D%22full%22%20width%3D%22300%22%20height%3D%22300%22%3E%3Crect%20width%3D%22100%25%22%20height%3D%22100%25%22%20fill%3D%22%23de006e%22%2F%3E%3Ctext%20x%3D%22150%22%20y%3D%22150%22%20font-size%3D%2260%22%20text-anchor%3D%22middle%22%20alignment-baseline%3D%22middle%22%20font-family%3D%22monospace%2C%20sans-serif%22%20fill%3D%22%23ffffff%22%3ES.G.%3C%2Ftext%3E%3C%2Fsvg%3E" alt="Sarah Ghostwriter" class="team-card-img">
+                    <div class="team-card-content">
+                        <h4 class="team-name">Dr. Sarah Ghostwriter</h4>
+                        <div class="team-title">Chief Technology Officer & Quantum Deletion Architect</div>
+                        <div class="team-badges">
+                            <span class="team-badge">Quantum Computing</span>
+                            <span class="team-badge">Anti-Forensics Expert</span>
+                        </div>
+                        <p class="team-bio">Sarah's groundbreaking work in quantum data obfuscation forms the backbone of our proprietary VOID™ technology. Before joining DeleteThisFile, she led a secretive research division at CERN, working on experiments that she still refuses to discuss even with our own staff.</p>
+                        <div class="team-fun-fact">
+                            <strong>Fun Fact:</strong> Sarah maintains a collection of every storage device she's ever owned, all wiped so thoroughly that scientists have confirmed they emit fewer digital traces than factory-new media.
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="team-card">
+                    <img src="data:image/svg+xml;charset=UTF-8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20version%3D%221.1%22%20baseProfile%3D%22full%22%20width%3D%22300%22%20height%3D%22300%22%3E%3Crect%20width%3D%22100%25%22%20height%3D%22100%25%22%20fill%3D%22%23005a87%22%2F%3E%3Ctext%20x%3D%22150%22%20y%3D%22150%22%20font-size%3D%2260%22%20text-anchor%3D%22middle%22%20alignment-baseline%3D%22middle%22%20font-family%3D%22monospace%2C%20sans-serif%22%20fill%3D%22%23ffffff%22%3EM.S.%3C%2Ftext%3E%3C%2Fsvg%3E" alt="Marcus Shredder" class="team-card-img">
+                    <div class="team-card-content">
+                        <h4 class="team-name">Marcus Shredder</h4>
+                        <div class="team-title">Chief Anti-Forensics Strategist</div>
+                        <div class="team-badges">
+                            <span class="team-badge">Digital Forensics</span>
+                            <span class="team-badge">Counterintelligence</span>
+                        </div>
+                        <p class="team-bio">Marcus leads our Red Team, constantly attempting to recover data deleted by our own systems. With a background in digital forensics for [REDACTED], his team is responsible for ensuring our deletion protocols remain unbeatable even as recovery technology advances.</p>
+                        <div class="team-fun-fact">
+                            <strong>Fun Fact:</strong> Marcus has testified as an expert witness in 27 high-profile cases, but all court records of his appearances have mysteriously disappeared from public databases.
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="team-card">
+                    <img src="data:image/svg+xml;charset=UTF-8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20version%3D%221.1%22%20baseProfile%3D%22full%22%20width%3D%22300%22%20height%3D%22300%22%3E%3Crect%20width%3D%22100%25%22%20height%3D%22100%25%22%20fill%3D%22%23a30000%22%2F%3E%3Ctext%20x%3D%22150%22%20y%3D%22150%22%20font-size%3D%2260%22%20text-anchor%3D%22middle%22%20alignment-baseline%3D%22middle%22%20font-family%3D%22monospace%2C%20sans-serif%22%20fill%3D%22%23ffffff%22%3EA.Z.%3C%2Ftext%3E%3C%2Fsvg%3E" alt="Alexis Zero" class="team-card-img">
+                    <div class="team-card-content">
+                        <h4 class="team-name">Alexis "Zero-Trace" Zero</h4>
+                        <div class="team-title">Chief Privacy Evangelist & Compliance Officer</div>
+                        <div class="team-badges">
+                            <span class="team-badge">Data Protection</span>
+                            <span class="team-badge">International Compliance</span>
+                        </div>
+                        <p class="team-bio">Alexis ensures our zero-knowledge architecture remains compliant with international regulations while maintaining true deletion capabilities. A former advisor to multiple governments on data protection legislation, she knows the loopholes in privacy laws better than their authors.</p>
+                        <div class="team-fun-fact">
+                            <strong>Fun Fact:</strong> Alexis uses a custom operating system that leaves no logs, cookies, or digital signatures. Her team communicates using a proprietary messaging system that generates no metadata.
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="team-card">
+                    <img src="data:image/svg+xml;charset=UTF-8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20version%3D%221.1%22%20baseProfile%3D%22full%22%20width%3D%22300%22%20height%3D%22300%22%3E%3Crect%20width%3D%22100%25%22%20height%3D%22100%25%22%20fill%3D%22%234b0082%22%2F%3E%3Ctext%20x%3D%22150%22%20y%3D%22150%22%20font-size%3D%2260%22%20text-anchor%3D%22middle%22%20alignment-baseline%3D%22middle%22%20font-family%3D%22monospace%2C%20sans-serif%22%20fill%3D%22%23ffffff%22%3EX.N.%3C%2Ftext%3E%3C%2Fsvg%3E" alt="Xavier Nullbyte" class="team-card-img">
+                    <div class="team-card-content">
+                        <h4 class="team-name">Dr. Xavier Nullbyte</h4>
+                        <div class="team-title">Chief Quantum Cryptographer</div>
+                        <div class="team-badges">
+                            <span class="team-badge">Quantum Mechanics</span>
+                            <span class="team-badge">Temporal Physics</span>
+                        </div>
+                        <p class="team-bio">A theoretical physicist with multiple patents in quantum encryption, Xavier leads our research into post-quantum deletion methods. His team works from a laboratory that is Faraday-shielded and employs active quantum noise generation to prevent data leakage via side-channel attacks.</p>
+                        <div class="team-fun-fact">
+                            <strong>Fun Fact:</strong> Xavier published a 300-page book on quantum data security that became a bestseller, only to trigger its self-deletion mechanism 30 days after publication. No copies exist today.
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="team-card">
+                    <img src="data:image/svg+xml;charset=UTF-8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20version%3D%221.1%22%20baseProfile%3D%22full%22%20width%3D%22300%22%20height%3D%22300%22%3E%3Crect%20width%3D%22100%25%22%20height%3D%22100%25%22%20fill%3D%22%23008264%22%2F%3E%3Ctext%20x%3D%22150%22%20y%3D%22150%22%20font-size%3D%2260%22%20text-anchor%3D%22middle%22%20alignment-baseline%3D%22middle%22%20font-family%3D%22monospace%2C%20sans-serif%22%20fill%3D%22%23ffffff%22%3EV.V.%3C%2Ftext%3E%3C%2Fsvg%3E" alt="Victoria Voidspace" class="team-card-img">
+                    <div class="team-card-content">
+                        <h4 class="team-name">Victoria Voidspace</h4>
+                        <div class="team-title">Chief Enterprise Solutions Architect</div>
+                        <div class="team-badges">
+                            <span class="team-badge">Corporate Integration</span>
+                            <span class="team-badge">Regulatory Guidance</span>
+                        </div>
+                        <p class="team-bio">Victoria translates our complex deletion technology into scalable enterprise solutions. She works directly with Fortune 100 compliance officers to create customized deletion protocols that help massive organizations maintain plausible deniability while technically adhering to data retention laws.</p>
+                        <div class="team-fun-fact">
+                            <strong>Fun Fact:</strong> Victoria has a perfect memory but claims to "forget" at least one important thing per day to maintain the human principle of imperfect recall as a privacy protection strategy.
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="values-section">
+            <h3 class="values-title">Our Core Values</h3>
+            <p>The principles that guide our digital deletion revolution</p>
+            
+            <div class="values-grid">
+                <div class="value-card">
+                    <div class="value-icon">🔐</div>
+                    <h4 class="value-title">Absolute Privacy</h4>
+                    <p class="value-desc">We believe your data is yours alone. When you choose to delete something, it should cease to exist entirely, without exceptions or backdoors.</p>
+                </div>
+                
+                <div class="value-card">
+                    <div class="value-icon">⚛️</div>
+                    <h4 class="value-title">Quantum Integrity</h4>
+                    <p class="value-desc">We pursue deletion at the fundamental level of reality, ensuring no trace remains, not even theoretical quantum echoes of former data states.</p>
+                </div>
+                
+                <div class="value-card">
+                    <div class="value-icon">🛡️</div>
+                    <h4 class="value-title">Zero Compromise</h4>
+                    <p class="value-desc">We reject the false choice between convenience and security. Our solutions provide both unparalleled deletion and seamless user experience.</p>
+                </div>
+                
+                <div class="value-card">
+                    <div class="value-icon">🔬</div>
+                    <h4 class="value-title">Perpetual Innovation</h4>
+                    <p class="value-desc">As recovery technology evolves, so do our deletion methods. We stay 10 steps ahead of even theoretical recovery techniques.</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="awards-section">
+            <h3>Recognition & Accolades</h3>
+            <p>Our groundbreaking work in secure deletion has been recognized globally</p>
+            
+            <div class="awards-logos">
+                <img src="data:image/svg+xml;charset=UTF-8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20version%3D%221.1%22%20baseProfile%3D%22full%22%20width%3D%22180%22%20height%3D%2280%22%3E%3Crect%20width%3D%22100%25%22%20height%3D%22100%25%22%20fill%3D%22%23f0f0f0%22%2F%3E%3Ctext%20x%3D%2250%25%22%20y%3D%2250%25%22%20font-size%3D%2216%22%20text-anchor%3D%22middle%22%20alignment-baseline%3D%22middle%22%20font-family%3D%22Arial%2C%20sans-serif%22%20fill%3D%22%23333333%22%3E2025%20Security%3Cbr%20%2F%3EInnovation%20Award%3C%2Ftext%3E%3C%2Fsvg%3E" alt="Security Innovation Award" class="award-logo">
+                
+                <img src="data:image/svg+xml;charset=UTF-8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20version%3D%221.1%22%20baseProfile%3D%22full%22%20width%3D%22180%22%20height%3D%2280%22%3E%3Crect%20width%3D%22100%25%22%20height%3D%22100%25%22%20fill%3D%22%23f0f0f0%22%2F%3E%3Ctext%20x%3D%2250%25%22%20y%3D%2250%25%22%20font-size%3D%2216%22%20text-anchor%3D%22middle%22%20alignment-baseline%3D%22middle%22%20font-family%3D%22Arial%2C%20sans-serif%22%20fill%3D%22%23333333%22%3EQuantum%20Computing%3Cbr%20%2F%3EBreakthrough%20Prize%3C%2Ftext%3E%3C%2Fsvg%3E" alt="Quantum Computing Breakthrough Prize" class="award-logo">
+                
+                <img src="data:image/svg+xml;charset=UTF-8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20version%3D%221.1%22%20baseProfile%3D%22full%22%20width%3D%22180%22%20height%3D%2280%22%3E%3Crect%20width%3D%22100%25%22%20height%3D%22100%25%22%20fill%3D%22%23f0f0f0%22%2F%3E%3Ctext%20x%3D%2250%25%22%20y%3D%2250%25%22%20font-size%3D%2216%22%20text-anchor%3D%22middle%22%20alignment-baseline%3D%22middle%22%20font-family%3D%22Arial%2C%20sans-serif%22%20fill%3D%22%23333333%22%3EPrivacy%20Defender%3Cbr%20%2F%3ECertification%3C%2Ftext%3E%3C%2Fsvg%3E" alt="Privacy Defender Gold Medal" class="award-logo">
+                
+                <img src="data:image/svg+xml;charset=UTF-8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20version%3D%221.1%22%20baseProfile%3D%22full%22%20width%3D%22180%22%20height%3D%2280%22%3E%3Crect%20width%3D%22100%25%22%20height%3D%22100%25%22%20fill%3D%22%23f0f0f0%22%2F%3E%3Ctext%20x%3D%2250%25%22%20y%3D%2250%25%22%20font-size%3D%2216%22%20text-anchor%3D%22middle%22%20alignment-baseline%3D%22middle%22%20font-family%3D%22Arial%2C%20sans-serif%22%20fill%3D%22%23333333%22%3EForensic-Proof%3Cbr%20%2F%3ECertification%3C%2Ftext%3E%3C%2Fsvg%3E" alt="Forensic-Proof Certification" class="award-logo">
+                
+                <img src="data:image/svg+xml;charset=UTF-8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20version%3D%221.1%22%20baseProfile%3D%22full%22%20width%3D%22180%22%20height%3D%2280%22%3E%3Crect%20width%3D%22100%25%22%20height%3D%22100%25%22%20fill%3D%22%23f0f0f0%22%2F%3E%3Ctext%20x%3D%2250%25%22%20y%3D%2250%25%22%20font-size%3D%2216%22%20text-anchor%3D%22middle%22%20alignment-baseline%3D%22middle%22%20font-family%3D%22Arial%2C%20sans-serif%22%20fill%3D%22%23333333%22%3EWorld%20Economic%3Cbr%20%2F%3EForum%20Tech%20Pioneer%3C%2Ftext%3E%3C%2Fsvg%3E" alt="World Economic Forum Tech Pioneer" class="award-logo">
+            </div>
+            
+            <p style="font-style: italic; color: var(--gray-600);">* Some awards may have been retroactively deleted from public records at our request to maintain operational security.</p>
+        </div>
+
+        <div style="text-align: center;">
+            <a href="index.html" class="back-to-home">Return to Home</a>
+        </div>
+
+        <footer>
+            <div class="compliance">
+                <span class="compliance-badge">ISO 27001</span>
+                <span class="compliance-badge">GDPR</span>
+                <span class="compliance-badge">HIPAA</span>
+                <span class="compliance-badge">SOC 2</span>
+                <span class="compliance-badge">NIST 800-88</span>
+            </div>
+            <p>Files are processed using proprietary zero-knowledge architecture. No data is transmitted externally.</p>
+            <p>© 2025 DeleteThisFile.com | <a href="privacy-policy.html">Privacy Policy</a> | <a href="terms-of-service.html">Terms of Service</a> | <a href="enterprise-solutions.html">Enterprise Solutions</a> | <a href="testimonials.html">Testimonials</a> | <a href="how-it-works.html">How It Works</a> | <a href="team.html">Our Team</a></p>
+        </footer>
+    </div>
+</body>
+</html> 
