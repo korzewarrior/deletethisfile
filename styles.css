@@ -248,7 +248,7 @@ header {
     justify-content: space-between;
     align-items: center;
     padding: 1rem 2rem;
-    background-color: var(--header-bg);
+    
     border-bottom: 1px solid var(--border-color);
     flex-wrap: wrap;
     gap: 1rem;
