@@ -63,7 +63,7 @@
     --body-color: var(--gray-800);
     --card-bg: white;
     --card-border: var(--gray-200);
-    --header-bg: white;
+    
     --footer-bg: var(--gray-100);
     --footer-color: var(--gray-700);
 }
@@ -90,7 +90,7 @@
     --body-color: var(--gray-800);
     --card-bg: #1e1e1e;
     --card-border: var(--gray-200);
-    --header-bg: #1a1a1a;
+
     --footer-bg: var(--gray-100);
     --footer-color: var(--gray-600);
     --text-color: var(--gray-800);
