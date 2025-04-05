@@ -1372,26 +1372,85 @@
 
     // Add event listeners for achievement card hover states
     document.addEventListener('DOMContentLoaded', function() {
-        const achievementCards = document.querySelectorAll('.achievement-card');
+        // New implementation for achievement tooltips
+        function setupAchievementTooltips() {
+            // Get all achievement cards
+            const cards = document.querySelectorAll('.achievement-card');
+            
+            cards.forEach(card => {
+                // Create a new tooltip element instead of using the span
+                const tooltipText = card.querySelector('.tooltip')?.textContent || "Hover to see achievement details";
+                const originalTooltip = card.querySelector('.tooltip');
+                
+                if (originalTooltip) {
+                    // Remove the original tooltip
+                    originalTooltip.remove();
+                }
+                
+                // Create a completely new tooltip div
+                const newTooltip = document.createElement('div');
+                newTooltip.className = 'tooltip-new';
+                newTooltip.textContent = tooltipText;
+                newTooltip.style.cssText = `
+                    visibility: hidden;
+                    width: 200px;
+                    background-color: #343a40;
+                    color: white;
+                    text-align: center;
+                    border-radius: 6px;
+                    padding: 8px 12px;
+                    position: absolute;
+                    z-index: 1000;
+                    bottom: 130%;
+                    left: 50%;
+                    transform: translateX(-50%);
+                    opacity: 0;
+                    transition: opacity 0.3s;
+                    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+                    font-size: 0.8rem;
+                    pointer-events: none;
+                    white-space: normal;
+                `;
+                
+                // Add the arrow for the tooltip
+                const arrow = document.createElement('div');
+                arrow.style.cssText = `
+                    content: "";
+                    position: absolute;
+                    top: 100%;
+                    left: 50%;
+                    margin-left: -5px;
+                    border-width: 5px;
+                    border-style: solid;
+                    border-color: #343a40 transparent transparent transparent;
+                `;
+                newTooltip.appendChild(arrow);
+                
+                // Make sure the card has position relative
+                card.style.position = 'relative';
+                
+                // Add the new tooltip to the card
+                card.appendChild(newTooltip);
+                
+                // Add event listeners
+                card.addEventListener('mouseenter', function() {
+                    newTooltip.style.visibility = 'visible';
+                    newTooltip.style.opacity = '1';
+                });
+                
+                card.addEventListener('mouseleave', function() {
+                    newTooltip.style.visibility = 'hidden';
+                    newTooltip.style.opacity = '0';
+                });
+            });
+            
+            console.log('New achievement tooltips initialized');
+        }
         
-        achievementCards.forEach(card => {
-            const tooltip = card.querySelector('.tooltip');
-            
-            card.addEventListener('mouseenter', function() {
-                if (tooltip) {
-                    tooltip.style.visibility = 'visible';
-                    tooltip.style.opacity = '1';
-                    tooltip.style.transform = 'translateX(-50%) translateY(0)';
-                }
-            });
-            
-            card.addEventListener('mouseleave', function() {
-                if (tooltip) {
-                    tooltip.style.visibility = 'hidden';
-                    tooltip.style.opacity = '0';
-                    tooltip.style.transform = 'translateX(-50%) translateY(5px)';
-                }
-            });
-        });
+        // Call the function to set up the tooltips
+        setupAchievementTooltips();
+        
+        // Also call it after a small delay to ensure DOM is fully loaded
+        setTimeout(setupAchievementTooltips, 500);
     });
 })(); 
